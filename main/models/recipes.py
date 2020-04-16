@@ -4,14 +4,15 @@ from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 
-class Recipes(models.Model):
+class Recipe(models.Model):
   dish_name = models.CharField(max_length=500 null=True)
+  main_protein = models.CharField(max_length=100 null=True)
   image = models.CharField(max_length=5000 null=True)
   source = models.CharField(max_length=500 null=True)
   instructions_url = models.CharField(max_length=500 null=True)
   servings = models.IntegerField(null=True)
-  dietLabels = models.ArrayField(null=True)
-  healthLabels = models.ArrayField(null=True)
+  diet_labels = models.ArrayField(null=True)
+  health_labels = models.ArrayField(null=True)
   ingredients_lines = models.ArrayField(null=True)
   ingredients = models.ArrayField(null=True)
   calories = models.IntegerField(null=True)
