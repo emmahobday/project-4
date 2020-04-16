@@ -40,9 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'jwt_auth',
     'rest_framework',
-    'main',
-    
+    'main'
 ]
+
+AUTH_USER_MODEL = 'jwt_auth.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
@@ -97,9 +98,6 @@ DATABASES = {
         'PORT': 5432
     }
 }
-
-AUTH_USER_MODEL = 'jwt_auth.User'
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

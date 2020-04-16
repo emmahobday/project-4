@@ -26,11 +26,11 @@ class UserSerializer(serializers.ModelSerializer):
         data['password'] = make_password(password)
         return data
 
-  def validate_image(self, value):
-        if not value.startswith('http'):
-            raise serializers.ValidationError({'image': 'Image field must begin `http`'})
+  # def validate_image(self, value):
+  #       if not value.startswith('http'):
+  #           raise serializers.ValidationError({'image': 'Image field must begin `http`'})
 
-        return value
+  #       return value
 
   class Meta:
         model = User

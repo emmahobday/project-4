@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('jwt_auth.urls')), # prefix api and sending it of to our jwt_auth urls, login and register
-
+  path('admin/', admin.site.urls),
+  path('api/', include('jwt_auth.urls')), # prefix api and sending it of to our jwt_auth urls, login and register
 ]
