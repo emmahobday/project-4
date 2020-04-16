@@ -1,0 +1,26 @@
+{
+  "name": "project-4",
+  "version": "1.0.0",
+  "description": "SEI Paired Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emmahobday/project-4.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emmahobday/project-4/issues"
+  },
+  "homepage": "https://github.com/emmahobday/project-4#readme",
+  "dependencies": {
+    "@babel/core": "^7.9.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4"
+  }
+}
