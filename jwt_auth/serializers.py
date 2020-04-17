@@ -4,11 +4,14 @@ User = get_user_model()
 import django.contrib.auth.password_validation as validations
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
+# from main.serializers.healthlabel import HealthLabelSerializer
+
 
 class UserSerializer(serializers.ModelSerializer):
 
   password = serializers.CharField(write_only=True)
   password_confirmation = serializers.CharField(write_only=True)
+  # health_labels = HealthLabelSerializer(many=True)
 
   def validate(self, data):
 
@@ -34,4 +37,12 @@ class UserSerializer(serializers.ModelSerializer):
 
   class Meta:
         model = User
-        fields = ('username', 'email', 'password', 'password_confirmation', 'image', 'five_starred_recipes', 'four_starred_recipes', 'health_labels', 'comments')
+        fields = ('id', 'username', 'email', 'password', 'password_confirmation', 'image')
+        # extra_kwargs = {'health_labels': {'required': False}}
+
+class PopulateUserSerializer(serializers.ModelSerializer):
+  # health_labels = HealthLabelSerializer(many=True)
+  class Meta:
+        model = User
+        fields = ('id', 'username', 'image', 'health_labels', 'comments',)
+        # fields = '__all__'
