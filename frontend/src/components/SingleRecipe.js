@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+import Rating from './Rating'
+import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons'
+
+
+
 const SingleRecipe = (props) => {
   const [singleRecipeData, setSingleRecipeData] = useState(null)
 
@@ -25,6 +30,7 @@ const SingleRecipe = (props) => {
       <div className="columns">
         <div className="column is-one-half">
           <h1 className="title">{singleRecipeData.dish_name}</h1>
+          <Rating />
           <h1> hello </h1>
           {/* <div>Genre: {singleRecipeData.genre}</div>
           <div>Pages: {singleBookData.pages}</div>
