@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import Rating from './Rating'
 import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons'
-
+import auth from '../../lib/auth'
 
 
 const SingleRecipe = (props) => {
@@ -13,12 +13,21 @@ const SingleRecipe = (props) => {
 
   useEffect(() => {
     console.log('hello')
-    axios.get(`/api/recipe/${id}`)
-      .then(resp => {
-        console.log(resp)
-        setSingleRecipeData(resp.data)
-      })
-    return () => console.log('Unmounting component')
+    if (auth.getToken()) {
+
+
+      axios.get(`/api/main/recipe/${id}`, { headers: { Authorization: `Bearer ${auth.getToken()}` } })
+        .then(resp => {
+          console.log(resp)
+          setSingleRecipeData(resp.data)
+        })
+    } else {
+      axios.get(`/api/main/recipe/${id}`)
+        .then(resp => {
+          console.log(resp)
+          setSingleRecipeData(resp.data)
+        })
+    }
   }, [])
 
 
@@ -30,7 +39,7 @@ const SingleRecipe = (props) => {
       <div className="columns">
         <div className="column is-one-half">
           <h1 className="title">{singleRecipeData.dish_name}</h1>
-          <Rating recipeId={id} />
+          {auth.getToken() && <Rating recipeId={id} rating={singleRecipeData && singleRecipeData.rating} />}
           <h1> hello </h1>
           {/* <div>Genre: {singleRecipeData.genre}</div>
           <div>Pages: {singleBookData.pages}</div>
@@ -46,6 +55,8 @@ const SingleRecipe = (props) => {
   </section>
   )
 }
+
+// {isloggedIn && user === comment.user.username && <button className="button is-danger is-round comment-delete" onClick={this.props.onClick}>Delete</button>}
 
 export default SingleRecipe
 

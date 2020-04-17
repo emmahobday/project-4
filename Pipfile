@@ -13,6 +13,7 @@ request = "*"
 requests = "*"
 restframework = "*"
 pyjwt = "*"
+djangorestframework-jwt = "*"
 
 [requires]
 python_version = "3.7"
