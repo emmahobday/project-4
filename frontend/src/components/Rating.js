@@ -11,16 +11,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Rating = (props) => {
   const [ratingNum, setRatingNum] = useState(null)
+  const recipeId = props.recipeId
+  console.log(recipeId)
 
   function handleRatingAction(value, event) {
     setRatingNum(value)
     console.log(value)
     // once rated, need to call backend to create an instance of rating using rating model. needs to be a backend endpoint?
-    // would need info: recipe id, which will be passed down by props to this component from singleRecipe component 
+    // would need info: recipe id -  got passed down as a prop. now in const recipeId 
     // would need info: rating, which is value 
-    // would need info: user - probably can get it from this page 
+    // would need info: user - probably can get it from this page. or i mean attach the authorisation bearer stuff to axios.post
     // when i have all this info i can make a post to create new instance of rating using rating model 
-
   }
 
 

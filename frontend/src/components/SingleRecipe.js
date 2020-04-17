@@ -8,10 +8,10 @@ import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons'
 
 const SingleRecipe = (props) => {
   const [singleRecipeData, setSingleRecipeData] = useState(null)
+  const id = props.match.params.id
 
 
   useEffect(() => {
-    const id = props.match.params.id
     console.log('hello')
     axios.get(`/api/recipe/${id}`)
       .then(resp => {
@@ -30,7 +30,7 @@ const SingleRecipe = (props) => {
       <div className="columns">
         <div className="column is-one-half">
           <h1 className="title">{singleRecipeData.dish_name}</h1>
-          <Rating />
+          <Rating recipeId={id} />
           <h1> hello </h1>
           {/* <div>Genre: {singleRecipeData.genre}</div>
           <div>Pages: {singleBookData.pages}</div>
