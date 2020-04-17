@@ -5,7 +5,7 @@ from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIV
 
 
 from main.models.recipe import Recipe 
-from main.serializers.recipe import BasicRecipeSerializer
+from main.serializers.recipe import BasicRecipeSerializer, DetailedRecipeSerializer
 
 from rest_framework.pagination import PageNumberPagination
 
@@ -14,7 +14,6 @@ class AllRecipesPagination(PageNumberPagination):
     page_size = 40
     page_size_query_param = 'page_size'
     max_page_size = 40
-
 
 class AllRecipesListView(ListCreateAPIView):
   queryset = Recipe.objects.all()
@@ -26,4 +25,8 @@ class AllRecipesListView(ListCreateAPIView):
       serializer = BasicRecipeSerializer(recipes, many=True)
       return self.get_paginated_response(serializer.data)
 
+
+class RecipeDetailView(RetrieveUpdateDestroyAPIView):
+  queryset = Recipe.objects.all()
+  serializer_class = DetailedRecipeSerializer
   
