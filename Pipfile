@@ -12,6 +12,7 @@ psycopg2-binary = "*"
 request = "*"
 requests = "*"
 restframework = "*"
+pyjwt = "*"
 
 [requires]
 python_version = "3.7"
