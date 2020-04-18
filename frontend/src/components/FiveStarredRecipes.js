@@ -1,32 +1,25 @@
 
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+import auth from '../../lib/auth'
 
-
-const AllRecipes = () => {
+const FiveStarredRecipes = () => {
   const [data, setData] = useState([])
-  const [fullData, setfullData] = useState(null)
-  const [pageNumber, setPageNumber] = useState(1)
 
 
   useEffect(() => {
-    fetch(`/api/main/recipes/?page=${pageNumber}`)
-      .then(resp => resp.json())
+    axios.get('api/main/user/fivestarredratings/', { headers: { Authorization: `Bearer ${auth.getToken()}` } })
       .then(resp => {
-        console.log(resp)
-        setfullData(resp)
-        setData(resp.results)
+        const recipesArray = resp.data.map(elem => {
+          console.log(elem.recipe)
+          return elem.recipe
+        })
+        setData(recipesArray)
       })
-    return () => console.log('Unmounting component')
-  }, [pageNumber])
+  }, [])
 
-  if (!fullData) return <h1> waiting for recipe data </h1>
-  console.log(fullData.count)
-  const displayPageNumbers = []
-  for (let i = 1; i <= Math.ceil(fullData.count / 40); i++) {
-    displayPageNumbers.push(i)
-  }
-  console.log(displayPageNumbers)
+  if (!data) return <h1> waiting for recipe data </h1>
 
   return (<div className="section">
     <div className="container">
@@ -51,15 +44,7 @@ const AllRecipes = () => {
         })}
       </div>
     </div >
-    <button onClick={() => setPageNumber(pageNumber - 1)} disabled={!fullData.previous}> previous </button>
-    <button onClick={() => setPageNumber(pageNumber + 1)} disabled={!fullData.next} > next </button>
-    <div>
-      {displayPageNumbers.map(page => {
-        return <button onClick={() => setPageNumber(page)} key={page}> {page} </button>
-      })}
-    </div>
   </div >)
 }
 
-
-export default AllRecipes
+export default FiveStarredRecipes

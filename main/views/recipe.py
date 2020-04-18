@@ -16,7 +16,7 @@ class AllRecipesPagination(PageNumberPagination):
 class AllRecipesListView(ListCreateAPIView):
   queryset = Recipe.objects.all()
   serializer_class = BasicRecipeSerializer
-  pagination_class = AllRecipesPagination 
+  pagination_class = AllRecipesPagination
 
   def get(self, request): 
       recipes = self.paginate_queryset(Recipe.objects.all())

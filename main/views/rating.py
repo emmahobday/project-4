@@ -4,7 +4,8 @@ from rest_framework.status import HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTIT
 from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView
 
 from main.models.rating import Rating
-from main.serializers.rating import BasicRatingSerializer
+from main.serializers.rating import BasicRatingSerializer, PopulatedRatingSerializer
+from main.serializers.recipe import BasicRecipeSerializer
 
 from main.models.recipe import Recipe
 
@@ -13,8 +14,20 @@ class RatingListView(ListCreateAPIView):
   serializer_class = BasicRatingSerializer
 
   def post(self, request):
-      # Turn the json into data we can store in psql. PROBABLY NEED A POPULATESERIALIZER
-      serializer = BasicRecipeSerializer(data=request.data)
-      # I'll have validation on the frontend. as in only rating using the stars will post to this endpoint anyway
-      serializer.save()
-      return Response(serializer.data, status=HTTP_201_CREATED)
+      #get the user posting 
+      user = request.user 
+      # Turn the json into data we can store in psql. 
+      serializer = BasicRatingSerializer(data=request.data)
+      # I'll have validation on the frontend. as in user can only rate using the stars 
+      if serializer.is_valid(raise_exception=True):
+        serializer.save(user=user)
+        return Response(serializer.data, status=HTTP_201_CREATED)
+      return Response(serializer.data, status=HTTP_422_UNPROCESSABLE_ENTITY)
+
+class UsersRatingListView(APIView):
+  def get(self,request):
+    ratings = Rating.objects.filter(user=request.user, rating_num=5)
+    serializer = PopulatedRatingSerializer(ratings, many=True)
+    return Response(serializer.data)
+
+
