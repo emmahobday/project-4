@@ -12,10 +12,11 @@ import SingleRecipe from './components/SingleRecipe'
 import Register from './components/Register'
 import Login from './components/Login'
 import FiveStarredRecipes from './components/FiveStarredRecipes'
-
+import NavBar from './components/NavBar'
 
 const App = () => {
   return <BrowserRouter>
+    <NavBar />
     <Switch>
       <Route exact path={'/'} component={Homepage} />
       <Route exact path={'/recipes/'} component={AllRecipes} />
