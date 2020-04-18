@@ -5,7 +5,7 @@ from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIV
 from rest_framework.pagination import PageNumberPagination
 
 from main.models.recipe import Recipe
-from main.serializers.recipe import BasicRecipeSerializer
+from main.serializers.recipe import BasicRecipeSerializer, DetailedRecipeSerializer
 
 class AllRecipesPagination(PageNumberPagination):
     page_size = 40
@@ -16,7 +16,7 @@ class AllRecipesPagination(PageNumberPagination):
 class AllRecipesListView(ListCreateAPIView):
   queryset = Recipe.objects.all()
   serializer_class = BasicRecipeSerializer
-  pagination_class = AllRecipesPagination 
+  pagination_class = AllRecipesPagination
 
   def get(self, request): 
       recipes = self.paginate_queryset(Recipe.objects.all())
@@ -28,12 +28,22 @@ class RecipeDetailView(RetrieveUpdateDestroyAPIView):
   serializer_class = DetailedRecipeSerializer
 
 # this returns recipes that have main_protein that matches the search filter taken from the URL of the GET request
-class FilteredRecipeView(ListCreateAPIView):
+class MainProteinRecipeView(ListCreateAPIView):
   serializer_class = BasicRecipeSerializer
   pagination_class = AllRecipesPagination 
 
-  def get(self, request, filter): 
-      recipes = self.paginate_queryset(Recipe.objects.filter(main_protein__iexact=filter))
+  def get(self, request, query): 
+      recipes = self.paginate_queryset(Recipe.objects.filter(main_protein__iexact=query))
+      serializer = BasicRecipeSerializer(recipes, many=True)
+      return self.get_paginated_response(serializer.data)
+
+# this returns recipes that have main_protein that matches the search filter taken from the URL of the GET request
+class MainProteinRecipeView(ListCreateAPIView):
+  serializer_class = BasicRecipeSerializer
+  pagination_class = AllRecipesPagination 
+
+  def get(self, request, query): 
+      recipes = self.paginate_queryset(Recipe.objects.filter(main_protein__iexact=query))
       serializer = BasicRecipeSerializer(recipes, many=True)
       return self.get_paginated_response(serializer.data)
 
