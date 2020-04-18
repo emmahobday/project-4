@@ -10,6 +10,6 @@ from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIV
 # importing status codes
 from rest_framework.status import HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_202_ACCEPTED, HTTP_204_NO_CONTENT
 
-from .serializers.recipe import BasicRecipeSerializer
+from .serializers.recipe import BasicRecipeSerializer, DetailedRecipeSerializer
 
 from .models.recipe import Recipe 

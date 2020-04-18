@@ -1,2 +1,4 @@
 from rest_framework import serializers
-from .models.recipe import Recipe
+#works without this anyway 
+# from .models.recipe import Recipe
+from .models.rating import Rating
