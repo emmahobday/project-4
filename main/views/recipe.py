@@ -37,6 +37,15 @@ class MainProteinRecipeView(ListCreateAPIView):
       serializer = BasicRecipeSerializer(recipes, many=True)
       return self.get_paginated_response(serializer.data)
 
+class DietLabelRecipeView(ListCreateAPIView):
+  serializer_class = BasicRecipeSerializer
+  pagination_class = AllRecipesPagination
+
+  def get(self, request, query):
+      recipes = self.paginate_queryset(Recipe.objects.filter(diet_Labels__icontains=query))
+      serializer = BasicRecipeSerializer(recipes, many=True)
+      return self.get_paginated_response(serializer.data)
+
 
 # this takes up to 3 search terms from the URL of the GET request (named query) and returns recipes that include these search terms in the ingredients list
 class FridgeRecipeView(ListCreateAPIView):
