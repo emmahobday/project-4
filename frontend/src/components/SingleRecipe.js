@@ -3,13 +3,14 @@ import axios from 'axios'
 
 import Rating from './Rating'
 import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons'
+import DonutChart from 'react-minimal-pie-chart'
 import auth from '../../lib/auth'
+
 
 
 const SingleRecipe = (props) => {
   const [singleRecipeData, setSingleRecipeData] = useState(null)
   const id = props.match.params.id
-
 
   useEffect(() => {
     console.log('hello')
@@ -31,6 +32,7 @@ const SingleRecipe = (props) => {
   }, [])
 
 
+
   if (!singleRecipeData) return <h1> waiting for recipe data </h1>
 
 
@@ -45,6 +47,29 @@ const SingleRecipe = (props) => {
           <div>Pages: {singleBookData.pages}</div>
           <p> Authors: {stringAuthorNames}</p> */}
           <br></br>
+          
+          <DonutChart
+            data={[
+              { title: 'Protein', value: singleRecipeData.protein, color: '#FF0000' },
+              { title: 'Carbs', value: singleRecipeData.carbs, color: '#228B22' },
+              { title: 'Fat', value: singleRecipeData.fat, color: '#FFD300' }
+            ]}
+            // radius={10}
+            cx={50}
+            cy={50}
+            label={false}
+            labelPosition={50}
+            lengthAngle={360}
+            lineWidth={25}
+            paddingAngle={0}
+            radius={8}
+            rounded={false}
+            startAngle={0}
+            viewBoxSize={[
+              10,
+              10
+            ]}
+          />
 
         </div>
         <div className="column is-one-half">

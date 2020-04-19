@@ -27,6 +27,7 @@
     "dotenv-webpack": "^1.7.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-minimal-pie-chart": "^7.3.0",
     "react-rating": "^2.0.5",
     "react-router-dom": "^5.1.2",
     "style-loader": "^1.1.4"
