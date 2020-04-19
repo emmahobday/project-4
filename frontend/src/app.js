@@ -14,6 +14,8 @@ import Login from './components/Login'
 import FiveStarredRecipes from './components/FiveStarredRecipes'
 import NavBar from './components/NavBar'
 import Fridge from './components/Fridge'
+import SuggestedRecipes from './components/SuggestedRecipes'
+
 
 const App = () => {
   return <BrowserRouter>
@@ -26,6 +28,7 @@ const App = () => {
       <Route exact path={'/login/'} component={Login} />
       <Route exact path={'/fivestarredrecipes/'} component={FiveStarredRecipes} />
       <Route exact path={'/fridge'} component={Fridge} />
+      <Route exact path={'/suggestedrecipes/'} component={SuggestedRecipes} />
 
     </Switch>
   </BrowserRouter>
