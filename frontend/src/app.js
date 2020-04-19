@@ -13,6 +13,7 @@ import Register from './components/Register'
 import Login from './components/Login'
 import FiveStarredRecipes from './components/FiveStarredRecipes'
 import NavBar from './components/NavBar'
+import Fridge from './components/Fridge'
 
 const App = () => {
   return <BrowserRouter>
@@ -24,6 +25,7 @@ const App = () => {
       <Route exact path={'/register/'} component={Register} />
       <Route exact path={'/login/'} component={Login} />
       <Route exact path={'/fivestarredrecipes/'} component={FiveStarredRecipes} />
+      <Route exact path={'/fridge'} component={Fridge} />
 
     </Switch>
   </BrowserRouter>
