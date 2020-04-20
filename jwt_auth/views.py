@@ -9,15 +9,17 @@ from django.conf import settings
 import jwt
 from .serializers import UserSerializer, PopulateUserSerializer
 
+from main.models.shopping_list import Shopping_list
 
 class RegisterView(APIView):
 
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            user = serializer.save()
+            #creates a shopping list for this user 
+            Shopping_list.objects.create(user=user)
             return Response({'message': 'Registration successful'})
-
         return Response(serializer.errors, status=422)
 
 
