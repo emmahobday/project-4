@@ -15,8 +15,8 @@ urlpatterns = [
     path('ratings/', RatingListView.as_view()),
     path('user/fivestarredratings/', UsersRatingListView.as_view()),
     path('user/suggestedrecipes/', SuggestedRecipesListView.as_view()),
-    path('allrecipestobuyfor', RecipeToBuyForListView.as_view())
-    # path('allrecipestobuyfor/<int:pk>', RecipeToBuyForListView.as_view())
+    # path('allrecipestobuyfor', RecipeToBuyForListView.as_view())
+    path('allrecipestobuyfor/<int:pk>', RecipeToBuyForListView.as_view())
 
 
 ]

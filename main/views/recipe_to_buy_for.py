@@ -18,9 +18,10 @@ class RecipeToBuyForListView(APIView):
         return Response(serializer.data)
 
     # for the first time
-    def post(self, request):
-      # must put , because it returns a tuple, the 2nd argument would be true or false
-        recipe = Recipe.objects.get(id=request.data['recipe_id'])
+    def post(self, request, pk):
+        recipe = Recipe.objects.get(id=pk)
+        # recipe = Recipe.objects.get(id=request.data['recipe_id'])
+        # must put , because it returns a tuple, the 2nd argument would be true or false
         recipe_to_buy_for, _ = Recipe_to_buy_for.objects.get_or_create(
             # the model recipe_to_buy_for has a field "shopping_list", so I need to tell it which shopping_list it is connected to
             shopping_list=request.user.shopping_list,
@@ -46,9 +47,8 @@ class RecipeToBuyForListView(APIView):
         return Response(serializer.data, status=HTTP_422_UNPROCESSABLE_ENTITY)
 
     # this deletes the entire recipe to buy for (i.e removes all the ingredients for that recipe to buy for, for that user)
-    def delete(self, request):
-        recipe = Recipe.objects.get(id=request.data['recipe_id'])
-
+    def delete(self, request, pk):
+        recipe = Recipe.objects.get(id=pk)
         recipe_to_buy_for = Recipe_to_buy_for.objects.get(
             shopping_list=request.user.shopping_list,
             recipe=recipe
