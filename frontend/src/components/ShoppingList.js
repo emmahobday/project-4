@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import auth from '../../lib/auth'
 
+import IngredientLine from './IngredientLine'
+
 const ShoppingList = () => {
   const [data, setData] = useState([])
 
@@ -27,12 +29,12 @@ const ShoppingList = () => {
         return <div key={recipe.recipe.id} className="individualrecipecontainer">
           <div className="recipetextcolumn">
             <div className="subtitle"> {recipe.recipe.dish_name}</div>
-            {recipe.ingredients_to_buy_for.map(ingredient => {
 
-              return <div key={ingredient}> {ingredient} </div>
+            {recipe.ingredients_to_buy_for.map(ingredient => {
+              return <IngredientLine key={ingredient} ingredient={ingredient} />
+
             })
             }
-
 
           </div>
           <div className="recipeimagecolumn">
