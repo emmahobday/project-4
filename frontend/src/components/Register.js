@@ -39,7 +39,7 @@ class Register extends React.Component {
 
   render() {
     const { errors } = this.state
-    console.log('ben ', errors)
+    console.log('errors:', errors)
 
 
     return <div className="login-container">
