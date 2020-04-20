@@ -30,10 +30,19 @@ class RecipeDetailView(RetrieveUpdateDestroyAPIView):
 # this returns recipes that have main_protein that matches the search filter taken from the URL of the GET request
 class MainProteinRecipeView(ListCreateAPIView):
   serializer_class = BasicRecipeSerializer
-  pagination_class = AllRecipesPagination 
+  pagination_class = AllRecipesPagination
 
   def get(self, request, query): 
       recipes = self.paginate_queryset(Recipe.objects.filter(main_protein__iexact=query))
+      serializer = BasicRecipeSerializer(recipes, many=True)
+      return self.get_paginated_response(serializer.data)
+
+class MainProteinSummaryView(ListCreateAPIView):
+  serializer_class = BasicRecipeSerializer
+  pagination_class = AllRecipesPagination
+
+  def get(self, request, query): 
+      recipes = self.paginate_queryset(Recipe.objects.filter(main_protein__iexact=query)[:10])
       serializer = BasicRecipeSerializer(recipes, many=True)
       return self.get_paginated_response(serializer.data)
 
