@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import 'bulma'
-
-// import './style.scss'
+import './style.scss'
 
 import Homepage from './components/Homepage'
 import AllRecipes from './components/AllRecipes'
@@ -15,6 +14,7 @@ import FiveStarredRecipes from './components/FiveStarredRecipes'
 import NavBar from './components/NavBar'
 import Fridge from './components/Fridge'
 import SuggestedRecipes from './components/SuggestedRecipes'
+import ShoppingList from './components/ShoppingList'
 
 
 const App = () => {
@@ -29,6 +29,7 @@ const App = () => {
       <Route exact path={'/fivestarredrecipes/'} component={FiveStarredRecipes} />
       <Route exact path={'/fridge'} component={Fridge} />
       <Route exact path={'/suggestedrecipes/'} component={SuggestedRecipes} />
+      <Route exact path={'/shoppinglist/'} component={ShoppingList} />
 
     </Switch>
   </BrowserRouter>

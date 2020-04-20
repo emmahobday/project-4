@@ -1,0 +1,35 @@
+
+// shopping list feature 
+.shoppinglisttitle {
+  font-size: 40px;
+  
+}
+
+.shoppinglistcontainer {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+
+}
+
+.individualrecipecontainer{
+  display: flex;
+  width: 100%;
+  border: 1px purple solid;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.recipetextcolumn {
+}
+
+.recipeimagecolumn {
+}
+
+
+.shoppinglistcontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

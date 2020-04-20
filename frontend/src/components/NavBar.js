@@ -68,6 +68,10 @@ class NavBar extends React.Component {
                 <Link className="navbar-edited" to="/suggestedrecipes">Suggested Recipes For You</Link>
               </div>}
 
+              {isLoggedIn && <div className="navbar-item">
+                <Link className="navbar-edited" to="/shoppinglist">Shopping List</Link>
+              </div>}
+
               {isLoggedIn && <div className="navbar-item has-dropdown is-hoverable navbar-name">
 
                 <div className="navbar-link">

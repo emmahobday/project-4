@@ -10,9 +10,9 @@ from main.serializers.recipe_to_buy_for import BasicRecipeToBuyForSerializer, DR
 
 class RecipeToBuyForListView(APIView):
     # gets all the recipes to buy for (will show all users' recipeS to buy for )
-    def get(self, request):
-        recipes_to_buy_for = Recipe_to_buy_for.objects.all()
-        # not sure if plural can just be recipeS_to_buy_for
+    def get(self, request, pk):
+        recipe_to_buy_fors = Recipe_to_buy_for.objects.filter(
+            shopping_list__user=request.user)
         serializer = BasicRecipeToBuyForSerializer(
             recipe_to_buy_fors, many=True)
         return Response(serializer.data)
@@ -26,8 +26,6 @@ class RecipeToBuyForListView(APIView):
             # the model recipe_to_buy_for has a field "shopping_list", so I need to tell it which shopping_list it is connected to
             shopping_list=request.user.shopping_list,
             recipe=recipe
-            # NOT SURE IF THIS IS HOW YOU ACCESS FIELDS FROM THE REQUEST:
-            # recipe = request.data.recipe_id
         )
         # serializer = DRFNormalRecipeToBuyForSerializer(request.data.ingredient)
         serializer = DRFNormalRecipeToBuyForSerializer(

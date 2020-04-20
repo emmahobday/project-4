@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import auth from '../../lib/auth'
 
-const FiveStarredRecipes = () => {
+const SuggestedRecipes = () => {
   const [data, setData] = useState([])
 
 
@@ -44,4 +44,4 @@ const FiveStarredRecipes = () => {
   </div >)
 }
 
-export default FiveStarredRecipes
+export default SuggestedRecipes

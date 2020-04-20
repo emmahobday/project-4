@@ -13,11 +13,15 @@ const SingleRecipe = (props) => {
   const [singleRecipeData, setSingleRecipeData] = useState(null)
   const id = props.match.params.id
 
+  function addIngredientToShoppingList(ingredient) {
+    axios.post(`/api/main/allrecipestobuyfor/${id}`, { 'ingredient': ingredient }, { headers: { Authorization: `Bearer ${auth.getToken()}` } })
+      .then(resp => {
+        console.log(resp)
+      })
+  }
+
   useEffect(() => {
-    console.log('hello')
     if (auth.getToken()) {
-
-
       axios.get(`/api/main/recipe/${id}`, { headers: { Authorization: `Bearer ${auth.getToken()}` } })
         .then(resp => {
           console.log(resp)
@@ -44,6 +48,18 @@ const SingleRecipe = (props) => {
           <h1 className="title">{singleRecipeData.dish_name}</h1>
 
           {auth.getToken() && <Rating recipeId={id} rating={singleRecipeData && singleRecipeData.rating} />}
+          <h2> ingredients</h2>
+          {singleRecipeData.ingredients_lines.map(ingredient => {
+            return <>
+              <div key={ingredient}> • {ingredient}
+                <button onClick={() => addIngredientToShoppingList(ingredient)}> Add ingredient to shopping list </button>
+              </div>
+
+            </>
+
+          })
+
+          }
 
           {/* <div>Genre: {singleRecipeData.genre}</div>
           <div>Pages: {singleBookData.pages}</div>
