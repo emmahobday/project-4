@@ -132,3 +132,32 @@ class AllRecipeSearchList(ListCreateAPIView):
     return self.get_paginated_response(serializer.data)
 
 
+class AdvancedSearchList(ListCreateAPIView):
+  serializer_class = BasicRecipeSerializer
+  pagination_class = AllRecipesPagination 
+
+  def get(self, request, query): 
+    
+    print(query)
+    categoryArray = query.split('$')
+    
+    wordsArray = categoryArray[0].split('&')
+    dietLabelsArray = categoryArray[1].split('&')
+    healthLabelsArray = categoryArray[2].split('&')
+
+    queryTerms = []
+
+
+    for term in wordsArray:
+      queryTerms.append(Q(ingredients_lines__icontains=term) | Q(dish_name__icontains=term))
+
+    for term in dietLabelsArray:
+      queryTerms.append(Q(diet_Labels__icontains=term))
+
+    for term in healthLabelsArray:
+      queryTerms.append(Q(health_Labels__icontains=term))
+  
+    recipes = self.paginate_queryset(Recipe.objects.filter(*queryTerms))
+    
+    serializer = BasicRecipeSerializer(recipes, many=True)
+    return self.get_paginated_response(serializer.data)
