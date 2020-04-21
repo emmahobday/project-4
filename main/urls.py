@@ -18,6 +18,8 @@ urlpatterns = [
     # path('allrecipestobuyfor', RecipeToBuyForListView.as_view())
     path('allrecipestobuyfor/<int:pk>', RecipeToBuyForListView.as_view()),
     path('recipes/type/summary/<str:query>', MainProteinSummaryView.as_view()),
-    # path('recipes/search/<str:query>', AllRecipeSearchList.as_view()),
-    path('recipes/search/<str:query>', AdvancedSearchList.as_view())
+    path('recipes/search/<str:query>', AdvancedSearchList.as_view()),
+    path('recipes/search/<str:query>', AllRecipeSearchList.as_view())
+
+
 ]
