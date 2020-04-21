@@ -51,13 +51,26 @@ const AllRecipes = () => {
         })}
       </div>
     </div >
-    <button onClick={() => setPageNumber(pageNumber - 1)} disabled={!fullData.previous}> previous </button>
-    <button onClick={() => setPageNumber(pageNumber + 1)} disabled={!fullData.next} > next </button>
-    <div>
-      {displayPageNumbers.map(page => {
-        return <button onClick={() => setPageNumber(page)} key={page}> {page} </button>
-      })}
+    <div className="allpagebuttons">
+      <button className="pagebutton prevnextbutton" onClick={() => setPageNumber(pageNumber - 1)} disabled={!fullData.previous}> Previous </button>
+      <span>
+        {displayPageNumbers.map(page => {
+          return <button className="pagebutton" onClick={() => setPageNumber(page)} key={page}> {page} </button>
+
+          // <>
+          //   <a key={page} onClick={() => setPageNumber(page)} target='_blank' href=''>
+          //     {page}
+          //   </a>
+          //   <span>  </span>
+          // </>
+          // <button onClick={() => setPageNumber(page)} key={page}> {page} </button>
+        })}
+      </span>
+      <button className="prevnextbutton pagebutton" onClick={() => setPageNumber(pageNumber + 1)} disabled={!fullData.next} > Next </button>
+
+
     </div>
+
   </div >)
 }
 
