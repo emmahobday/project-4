@@ -4,7 +4,7 @@ from rest_framework.status import HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTIT
 from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView
 
 from main.models.meal_plan_recipe import Meal_plan_recipe
-from main.serializers.meal_plan_recipe import BasicMPRSerializer
+from main.serializers.meal_plan_recipe import BasicMPRSerializer, PopulatedMPRSerializer
 # from main.serializers.rating import BasicRatingSerializer, PopulatedRatingSerializer
 # from main.serializers.recipe import BasicRecipeSerializer
 
@@ -14,7 +14,7 @@ from main.serializers.meal_plan_recipe import BasicMPRSerializer
 class UserMealPlanRecipeListView(APIView):
     def get(self, request):
         mprecipes = Meal_plan_recipe.objects.filter(user=request.user)
-        serializer = BasicMPRSerializer(mprecipes, many=True)
+        serializer = PopulatedMPRSerializer(mprecipes, many=True)
         return Response(serializer.data)
 
     def post(self, request):
