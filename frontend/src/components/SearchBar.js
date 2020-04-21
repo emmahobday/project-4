@@ -6,9 +6,11 @@ import { Link } from 'react-router-dom'
 const SearchBar = ({ query, onChange, onSubmit }) => {
 
   const searchTerms = query.split(' ').join('&')
-  console.log(searchTerms)
+  console.log('searchbar query', query)
+  console.log('searchbar searchterms', searchTerms)
 
   //on submit, this should redirect to searchrecipes page, sending through query as state
+  // 
 
 
   return <>
@@ -32,7 +34,7 @@ const SearchBar = ({ query, onChange, onSubmit }) => {
 
       <Link
         to={{
-          pathname: `recipes/search/${searchTerms}`,
+          pathname: `/recipes/search/${searchTerms}`,
           state: {
             query: query,
             searchTerms: searchTerms

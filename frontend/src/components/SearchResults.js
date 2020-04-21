@@ -1,24 +1,41 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router'
+import SearchBar from './SearchBar'
 
 const SearchResults = () => {
 
   const [displaySearchResults, setDisplaySearchResults] = useState([])
   const [pageNumber, setPageNumber] = useState(1)
 
+  // track what's being typed in state here, send it through to searchbar 
+  // the searchbar component contains a link to a new searchresult page
+  // the searchbar uses searchTerms as its URL, which is built from query
+  // so searchbar needs query sent through, but in this component we need to call it 'reQuery', but send this value through as 'query'
+
+  const [reQuery, setReQuery] = useState('')
+
+  // this comes directly from the URL
   const { query } = useParams()
 
+  
+
+  // setSearchQuery(query)
+
+  // searchQuery should be:
+  //  - all recipe search --- from params
+  //  - when searching again --- from params?
+
   useEffect(() => {
+    
     fetch(`/api/main/recipes/fridge/${query}?page=${pageNumber}`)
-    // this should be a different fetch that checks dish_name as well as ingredients!
       .then(resp => resp.json())
       .then(resp => {
         console.log(resp)
         setDisplaySearchResults(resp.results)
       })
     return () => console.log('Unmounting component')
-  }, [pageNumber])
+  }, [query])
 
 
 
@@ -30,13 +47,16 @@ const SearchResults = () => {
 
   console.log(displaySearchResults)
   console.log('query', query)
+  console.log('requery', reQuery)
 
   const queryString = query.split('&').join(' ')
 
 
 
   return (<>
-    <h1>You searched for "{queryString}"</h1>
+    <h1>You searched for "{queryString}" - {displaySearchResults.length} results</h1>
+    <SearchBar query={reQuery} onChange={() => setReQuery(event.target.value)}  />
+
     <div className="section">
       <div className="container">
         <div className="columns is-full-mobile is-multiline is-centered mobile-padding">

@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import SearchBar from './SearchBar'
 
 
@@ -8,12 +8,11 @@ const AllRecipes = () => {
   const proteins = ['chicken', 'salmon', 'pasta', 'beef', 'prawn', 'lamb', 'cheese', 'tuna', 'tofu', 'salad', 'scallop', 'pork', 'egg', 'potato', 'rice', 'mussels', 'beans', 'cod', 'crab', 'falafel']
   const [recipes, setRecipes] = useState([[{ main_protein: '' }]])
   const [query, setQuery] = useState('')
-  const [searchResults, setSearchResults] = useState([])
-  // const [searchTerms, setSearchTerms] = useState([])
+  // const [searchResults, setSearchResults] = useState([])
 
   const searchTerms = query.split(' ')
   console.log('search terms', searchTerms)
-  console.log('search results', searchResults)
+  // console.log('search results', searchResults)
 
 
   useEffect(() => {
@@ -33,39 +32,19 @@ const AllRecipes = () => {
       })
   }, [])
 
-  const handleSubmit = (event) => {
-    // i think this can all go... its being done in the searchresults component
-    event.preventDefault()
-    const searchString = searchTerms.map(term => {
-      return `&${term}`
-    })
-    console.log(searchString.join(''))
-    fetch(`/api/main/recipes/fridge/${searchString.join('')}`)
-      .then(resp => resp.json())
-      .then(resp => {
-        console.log(resp)
-        setSearchResults(resp.results)
-      })
-
-  }
-
-  if (!searchTerms.length === 0) return <h1>search terms!</h1>
   return (<>
     <section>
       <h1>Browse recipes</h1>
     </section>
 
     <section>
-      <SearchBar query={query} onChange={() => setQuery(event.target.value)} onSubmit={() => handleSubmit(event)} />
-
       {/* search all recipes search bar - search ingredients and name */}
-      {/* this would need to redirect to a new results page, given layout? */}
-      {/* that page could show 'you searched for "....." and a searchbar to search again */}
+      {/* this would need to redirect to a new results page, given layout */}
+      {/* that page could show 'you searched for "....." - x results' and a searchbar to search again */}
       {/* would need to remove whitespace and send each word through as a search term */}
-      {/* I think maybe send though the whole string as props when you click submit */}
+      {/* Send though the whole string as props when you click submit? */}
+      <SearchBar query={query} onChange={() => setQuery(event.target.value)} onSubmit={() => event.preventDefault()} />
     </section>
-
-
 
     <div className="section">
       {recipes.map((protein) => {
@@ -83,7 +62,6 @@ const AllRecipes = () => {
                     </div>
                     <div className="card-content">
                       <div className="subtitle">{recipe.dish_name}</div>
-                      <div className="subtitle">Serves {recipe.servings}</div>
                     </div>
                   </div>
                 </Link>
