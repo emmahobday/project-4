@@ -17,7 +17,7 @@ class RecipeToBuyForListView(APIView):
             recipe_to_buy_fors, many=True)
         return Response(serializer.data)
 
-    # for the first time
+    # adding ingredient to the shopping list (including first time and subsequent adds)
     def post(self, request, pk):
         recipe = Recipe.objects.get(id=pk)
         # recipe = Recipe.objects.get(id=request.data['recipe_id'])
@@ -37,14 +37,39 @@ class RecipeToBuyForListView(APIView):
             # print('here, line 39', ingredient_field)
             ingredient_field.append(
                 serializer.validated_data['ingredient']
-                # next(iter(serializer.validated_data.values()))
             )
             recipe_to_buy_for.save()
             # print('here line 42', serializer.validated_data['ingredient'])
             return Response(serializer.data, status=HTTP_200_OK)
         return Response(serializer.data, status=HTTP_422_UNPROCESSABLE_ENTITY)
 
+    # this deletes an ingredient
+    def put(self, request, pk):
+        recipe = Recipe.objects.get(id=pk)
+        print(recipe)
+        print(recipe.__dict__)
+        print('can get here')
+        recipe_to_buy_for = Recipe_to_buy_for.objects.get(
+            shopping_list=request.user.shopping_list,
+            recipe=recipe
+        )
+        serializer = DRFNormalRecipeToBuyForSerializer(
+            data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            ingredient_field = recipe_to_buy_for.ingredients_to_buy_for
+            ingredient_field.remove(
+                serializer.validated_data['ingredient']
+            )
+            recipe_to_buy_for.save()
+            # after removing that ingredient, check if recipe_to_buy_for.ingredient_to_buy is an empty list
+            if (not recipe_to_buy_for.ingredients_to_buy_for):
+                recipe_to_buy_for.delete()
+
+            return Response(serializer.data, status=HTTP_200_OK)
+        return Response(serializer.data, status=HTTP_422_UNPROCESSABLE_ENTITY)
+
     # this deletes the entire recipe to buy for (i.e removes all the ingredients for that recipe to buy for, for that user)
+
     def delete(self, request, pk):
         recipe = Recipe.objects.get(id=pk)
         recipe_to_buy_for = Recipe_to_buy_for.objects.get(
