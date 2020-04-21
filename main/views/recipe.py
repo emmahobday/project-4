@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_202_ACCEPTED, HTTP_204_NO_CONTENT
 from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView
 from rest_framework.pagination import PageNumberPagination
+from django.db.models import Q
 
 from main.models.recipe import Recipe
 from main.serializers.recipe import BasicRecipeSerializer, DetailedRecipeSerializer
@@ -86,61 +87,48 @@ class FridgeRecipeView(ListCreateAPIView):
       serializer = BasicRecipeSerializer(recipes, many=True)
       return self.get_paginated_response(serializer.data)
 
-# class AllRecipeSearchList(ListCreateAPIView):
-#   serializer_class = BasicRecipeSerializer
-#   pagination_class = AllRecipesPagination 
 
-#   def get(self, request, query): 
-#     number_of_terms = len(query.split('&'))
-#     termsArray = query.split('&')
-#     # for term in termsArray:
-#     #   return query(position in termsarray) = 
-#     for x in range(0, number_of_terms):
-#       return query(x) = termsArray[x]
+class AllRecipeSearchList(ListCreateAPIView):
+  serializer_class = BasicRecipeSerializer
+  pagination_class = AllRecipesPagination 
 
-#       if query.count('&') == 2:
-#         query1 = query.split('&')[0]
-#         query2 = query.split('&')[1]
-#         query3 = query.split('&')[2]
-#       elif query.count('&') == 1:
-#         query1 = query.split('&')[0]
-#         query2 = query.split('&')[1]
-#         query3 = ''
-#       else:
-#         query1 = query
-#         query2 = ''
-#         query3 = ''
+  def get(self, request, query): 
+    number_of_terms = len(query.split('&'))
+    termsArray = query.split('&')
+    # recipes = []
+    # unique_recipes = set()
+    # unique_recipes_2 = list(unique_recipes)
 
-#       recipes = self.paginate_queryset(Recipe.objects.filter(
-#         ingredients_lines__icontains=query1
-#         ).filter(
-#           ingredients_lines__icontains=query2
-#         ).filter(
-#           ingredients_lines__icontains=query3
-#         ))
-#       serializer = BasicRecipeSerializer(recipes, many=True)
-#       return self.get_paginated_response(serializer.data)
+    # for term in termsArray:
+    #   # print(termsArray)
+    #   recipes.append(self.paginate_queryset(Recipe.objects.filter(
+    #   Q(ingredients_lines__icontains=term) | Q(dish_name__icontains=term)
+    #   )))
 
-# query = '&tomato&ham&cheese&potato'
-# number_of_terms = len(query.split('&'))
-# print(number_of_terms)
-# termsArray = query.split('&')
-# print(termsArray)
-# for x in range(0, number_of_terms):
-#   globals()['query%s' % x] = termsArray[x]
-# print(query0)
-# print(query1)
-# print(query2)
-# print(query3)
-# print(query4)
+    # for recipe_list in recipes:
+    #   for recipe in recipe_list:
+    #     unique_recipes.add(recipe)
+      
 
-# query = '&tomato&ham&cheese&potato'
+    # recipes.filter
+        # else:
+        #   break
 
-# number_of_terms = len(query.split('&'))
-# termsArray = query.split('&')
-# termsDict = {}
-# for x in range(0, number_of_terms):
-#   termsDict['query{0}'.format(x)] = termsArray[x]
-# print(termsDict)
+    # recipes = self.paginate_queryset(Recipe.objects.filter(
+    #   for term in termsArray:
+    #       return Q(ingredients_lines__icontains=term | Q(dish_name__icontains=term),
+    #     )
+
+    # queryTerm = Q(ingredients_lines__icontains=termsArray[0]) | Q(dish_name__icontains=termsArray[0])
+    
+    queryTerms = []
+
+    for term in termsArray:
+      queryTerms.append(Q(ingredients_lines__icontains=term) | Q(dish_name__icontains=term))
   
+    recipes = self.paginate_queryset(Recipe.objects.filter(*queryTerms))
+    
+    serializer = BasicRecipeSerializer(recipes, many=True)
+    return self.get_paginated_response(serializer.data)
+
 

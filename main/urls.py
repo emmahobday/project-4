@@ -1,6 +1,6 @@
 from django.urls import path
 
-from main.views.recipe import AllRecipesListView, RecipeDetailView, MainProteinRecipeView, MainProteinSummaryView, FridgeRecipeView, DietLabelRecipeView
+from main.views.recipe import AllRecipesListView, RecipeDetailView, MainProteinRecipeView, MainProteinSummaryView, FridgeRecipeView, DietLabelRecipeView, AllRecipeSearchList
 from main.views.rating import RatingListView, UsersRatingListView
 from main.views.suggested_recipes import SuggestedRecipesListView
 from main.views.recipe_to_buy_for import RecipeToBuyForListView
@@ -18,5 +18,6 @@ urlpatterns = [
     # path('allrecipestobuyfor', RecipeToBuyForListView.as_view())
     path('allrecipestobuyfor/<int:pk>', RecipeToBuyForListView.as_view())
     path('recipes/type/summary/<str:query>', MainProteinSummaryView.as_view()),
+    path('recipes/search/<str:query>', AllRecipeSearchList.as_view())
 
 ]

@@ -28,7 +28,7 @@ const SearchResults = () => {
 
   useEffect(() => {
     
-    fetch(`/api/main/recipes/fridge/${query}?page=${pageNumber}`)
+    fetch(`/api/main/recipes/search/${query}?page=${pageNumber}`)
       .then(resp => resp.json())
       .then(resp => {
         console.log(resp)
