@@ -51,7 +51,7 @@ const SearchResults = () => {
 
   const queryString = query.split('&').join(' ')
 
-
+  
 
   return (<>
     <h1>You searched for "{queryString}" - {displaySearchResults.length} results</h1>
