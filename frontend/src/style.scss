@@ -33,7 +33,24 @@
   text-decoration: line-through;
 
 }
-.scroll {
+
+
+// all recipes 
+.allpagebuttons {
+  margin-top: 20px;
+}
+.pagebutton {
+  border-radius: 5px;
+  font-size: 20px; 
+  margin: 5px;
+  margin-top: 10px;
+
+}
+
+.prevnextbutton {
+  color: green
+
+}.scroll {
   overflow-y: hidden;
   overflow-x: scroll;
 }
