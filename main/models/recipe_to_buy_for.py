@@ -10,7 +10,7 @@ User = get_user_model()
 class Recipe_to_buy_for(models.Model):
     # one recipe can have many recipes to buy for (from diff users)
     recipe = models.ForeignKey(
-        Recipe, related_name='recipes', on_delete=models.CASCADE, null=True
+        Recipe, related_name='recipes_to_buy_for', on_delete=models.CASCADE, null=True
     )
     shopping_list = models.ForeignKey(
         Shopping_list, related_name='recipe_to_buy_fors', on_delete=models.CASCADE, null=True

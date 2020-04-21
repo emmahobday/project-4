@@ -6,6 +6,7 @@ import Rating from './Rating'
 import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons'
 import DonutChart from 'react-minimal-pie-chart'
 import auth from '../../lib/auth'
+import MiniCalendar from './MiniCalendar'
 
 
 
@@ -144,6 +145,8 @@ const SingleRecipe = (props) => {
         </div>
         <div className="column is-one-half">
           <img src={singleRecipeData.image} alt={name} />
+          <MiniCalendar recipeId={id} />
+
         </div>
       </div>
     </div>
