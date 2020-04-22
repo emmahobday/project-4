@@ -56,6 +56,17 @@ const SearchResults = () => {
 
 
   return (<>
+    <section className="hero is-medium is-bold is-allrecipes-primary">
+      <div className="hero-body center">
+        <div className="container">
+          <h1 className="allrecipestitle">
+            Search Results
+          </h1>
+        </div>
+      </div>
+    </section>
+    <section>
+    </section>
 
     {query && <h1>You searched for "{queryString}" - {displaySearchResults.length} results</h1>}
 
