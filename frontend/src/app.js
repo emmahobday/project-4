@@ -22,6 +22,7 @@ import AllRecipesByType from './components/AllRecipesByType'
 import RecipesByMainProtein from './components/RecipesByMainProtein'
 import SearchResults from './components/SearchResults'
 import MealPlan from './components/MealPlan'
+import RecipesbyDietType from './components/RecipesByDietType'
 
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
       <Route exact path={'/'} component={Homepage} />
       {/* <Route exact path={'/recipes/'} component={AllRecipes} /> */}
       <Route exact path={'/recipe/section/:id'} component={RecipesByMainProtein} />
+      <Route exact path={'/recipes/diet/:id'} component={RecipesbyDietType} />
       <Route exact path={'/recipes/'} component={AllRecipesByType} />
       <Route exact path={'/recipe/:id'} component={SingleRecipe} />
       <Route exact path={'/register/'} component={Register} />

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Link from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import Rating from './Rating'
 import { faCalendarPlus, faCartPlus } from '@fortawesome/free-solid-svg-icons'
@@ -15,7 +15,7 @@ import MiniCalendar from './MiniCalendar'
 const SingleRecipe = (props) => {
   const [singleRecipeData, setSingleRecipeData] = useState(null)
   const id = props.match.params.id
-  const isLoggedIn = auth.isLoggedIn()
+
 
   function addIngredientToShoppingList(ingredient) {
     axios.post(`/api/main/allrecipestobuyfor/${id}`, { 'ingredient': ingredient }, { headers: { Authorization: `Bearer ${auth.getToken()}` } })
@@ -41,7 +41,8 @@ const SingleRecipe = (props) => {
   }, [])
 
 
-
+  const isLoggedIn = auth.isLoggedIn()
+  console.log('isloggedin returns', isLoggedIn)
   if (!singleRecipeData) return <h1> waiting for recipe data </h1>
 
   return (<section className="section">
@@ -54,30 +55,39 @@ const SingleRecipe = (props) => {
         <div className="label-box">
 
           {singleRecipeData.diet_Labels.map(label =>
-            <div key={label} className='label-tags'>
+            <Link key={label} to={`/recipes/diet/${label}`}><div className='label-tags'>
               <p className='label-tag'>{label}</p>
-            </div>)}
+            </div></Link>)}
 
           {singleRecipeData.health_Labels.map(label =>
-            <div key={label} className='label-tags'>
+            <Link key={label} to={`/recipes/diet/${label}`}><div className='label-tags'>
               <p className='label-tag'>{label}</p>
-            </div>)}
+            </div></Link>)}
 
         </div>
         <div className="detail-box">
           <div className="detail-item centered-item">
             {auth.getToken() && <Rating recipeId={id} rating={singleRecipeData && singleRecipeData.rating} />}
-            {!auth.getToken() && <Link to='/login'><FontAwesomeIcon icon={faStarEmpty} /><FontAwesomeIcon icon={faStarEmpty} /><FontAwesomeIcon icon={faStarEmpty} /><FontAwesomeIcon icon={faStarEmpty} /><FontAwesomeIcon icon={faStarEmpty} /></Link>}
+            {/* {!isLoggedIn && <p>stars</p>} */}
+            {!isLoggedIn && <Link to='/login' className='login-link'><FontAwesomeIcon icon={faStarEmpty} /><FontAwesomeIcon icon={faStarEmpty} /><FontAwesomeIcon icon={faStarEmpty} /><FontAwesomeIcon icon={faStarEmpty} /><FontAwesomeIcon icon={faStarEmpty} /></Link>}
           </div>
           <div className="vl"></div>
-          <div className="detail-item flex-row">
+          {auth.getToken() && <div className="detail-item flex-row">
             <div className="centered-item">
               <FontAwesomeIcon icon={faCalendarPlus} className="calendar-icon" />
             </div>
             <div className="centered-item">
               <MiniCalendar recipeId={id} />
             </div>
-          </div>
+          </div>}
+          {!isLoggedIn && <Link to='/login' className='login-link'><div className="detail-item flex-row">
+            <div className="centered-item">
+              <FontAwesomeIcon icon={faCalendarPlus} className="calendar-icon" />
+            </div>
+            <div className="centered-item">
+              <MiniCalendar recipeId={id} />
+            </div>
+          </div></Link>}
           <div className="vl"></div>
           <div className="detail-item">
             <p>Get the full recipe at <a href={singleRecipeData.instructions_url} rel='noopener noreferrer' target='_blank'>{singleRecipeData.source}</a>.</p>
