@@ -72,6 +72,15 @@ font-size: large;
 
 //all recipes page 
 
+.searchbarcontainer{
+  display:flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+// .advancedsearchbutton{
+//   max-width: 100px;
+// }
 
 .is-allrecipes-primary {
   background-color: #E8AAC4;
@@ -206,7 +215,7 @@ font-size: large;
 }
 
 .dropdown, .advanced-search, .dropdown-menu {
-  min-width: 90vw !important;
+  min-width: 88vw !important;
 }
 
 .asitem {
