@@ -26,21 +26,21 @@ class Register extends React.Component {
     event.preventDefault()
     axios.post('/api/register',
       this.state.data)
-      .then(res => console.log('response ', res))
+      .then(res => console.log('response line 29', res))
       .then(() => {
-        console.log('hi')
+        console.log('hi - line 31')
         this.props.history.push('/login')
       })
       .catch(error => {
-        console.log(error.response.data)
-        this.setState({ errors: error.response.data.errors })
+        console.log('error 35', error.response.data)
+        this.setState({ errors: error.response.data })
       })
   }
 
+  
+
   render() {
     const { errors } = this.state
-    console.log('errors:', errors)
-
 
     return <div className="login-container">
       <section className="hero is-success is-fullheight">
@@ -74,7 +74,7 @@ class Register extends React.Component {
                         />
                       </div>
                       {errors.email && <small className="help is-danger">
-                        {errors.email.message}
+                        {errors.email}
                       </small>}
                     </div>
 
@@ -91,7 +91,7 @@ class Register extends React.Component {
                         />
                       </div>
                       {errors.username && <small className="help is-danger">
-                        {errors.username.message}
+                        {errors.username}
                       </small>}
                     </div>
 
@@ -108,7 +108,7 @@ class Register extends React.Component {
                         />
                       </div>
                       {errors.password && <small className="help is-danger">
-                        {errors.password.message}
+                        {errors.password}
                       </small>}
                     </div>
 
@@ -125,7 +125,7 @@ class Register extends React.Component {
                         />
                       </div>
                       {errors.password_confirmation && <small className="help is-danger">
-                        {errors.password_confirmation.message}
+                        {errors.password_confirmation}
                       </small>}
                     </div>
                     <button className="button is-success is-large">

@@ -43,7 +43,7 @@ class MainProteinRecipeView(ListCreateAPIView):
         serializer = BasicRecipeSerializer(recipes, many=True)
         return self.get_paginated_response(serializer.data)
 
-
+# used when you click on 'see more' of a particular type of protein
 class MainProteinSummaryView(ListCreateAPIView):
     serializer_class = BasicRecipeSerializer
     pagination_class = AllRecipesPagination
@@ -102,7 +102,7 @@ class AllRecipeSearchList(ListCreateAPIView):
   pagination_class = AllRecipesPagination 
 
   def get(self, request, query): 
-    number_of_terms = len(query.split('&'))
+    # number_of_terms = len(query.split('&'))
     termsArray = query.split('&')
     
     # recipes = []
@@ -131,13 +131,15 @@ class AllRecipeSearchList(ListCreateAPIView):
 
         # queryTerm = Q(ingredients_lines__icontains=termsArray[0]) | Q(dish_name__icontains=termsArray[0])
 
-        queryTerms = []
+    queryTerms = []
 
-        for term in termsArray:
-            queryTerms.append(Q(ingredients_lines__icontains=term)
-                              | Q(dish_name__icontains=term))
+    for term in termsArray:
+        queryTerms.append(Q(ingredients_lines__icontains=term) | Q(dish_name__icontains=term))
 
-        recipes = self.paginate_queryset(Recipe.objects.filter(*queryTerms))
+    recipes = self.paginate_queryset(Recipe.objects.filter(*queryTerms))
+
+    serializer = BasicRecipeSerializer(recipes, many=True)
+    return self.get_paginated_response(serializer.data)
 
 
 class AdvancedSearchList(ListCreateAPIView):
@@ -156,8 +158,7 @@ class AdvancedSearchList(ListCreateAPIView):
         queryTerms = []
 
         for term in wordsArray:
-            queryTerms.append(Q(ingredients_lines__icontains=term)
-                              | Q(dish_name__icontains=term))
+            queryTerms.append(Q(ingredients_lines__icontains=term) | Q(dish_name__icontains=term))
 
         for term in dietLabelsArray:
             queryTerms.append(Q(diet_Labels__icontains=term))

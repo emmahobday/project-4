@@ -41,6 +41,7 @@ class Login extends React.Component {
 
   render() {
     const { error } = this.state
+    console.log(error)
     return <div className="login-container">
       <section className="hero is-success is-fullheight">
         <div className="hero-body">
