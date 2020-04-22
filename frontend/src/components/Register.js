@@ -37,20 +37,20 @@ class Register extends React.Component {
       })
   }
 
-  
+
 
   render() {
     const { errors } = this.state
 
     return <div className="login-container">
-      <section className="hero is-success is-fullheight">
+      <section className="hero is-success is-fullheight registerbackground">
         <div className="hero-body">
           <div className="container has-text-centered">
-            <div className="column is-4 is-offset-4">
+            <div className="column is-4 registerboxonright">
               <div className="login-top">
                 <h1 className="title">Register</h1>
                 <hr className="login-hr" />
-                <p className="subtitle">Please enter your details to register.</p>
+                <p className="subtitle marginbottomsubtitle">Please enter your details to register.</p>
               </div>
               <div className="box box-override">
                 <div className="transparent-background">
@@ -128,7 +128,7 @@ class Register extends React.Component {
                         {errors.password_confirmation}
                       </small>}
                     </div>
-                    <button className="button is-success is-large">
+                    <button className="button is-success is-normal">
                       Register
                     </button>
                   </form>

@@ -112,12 +112,16 @@ font-size: large;
 .is-allrecipes-primary {
   background-color: #E8AAC4;
   margin-bottom: 20px;
+  background-image: url('https://img5.goodfon.com/wallpaper/nbig/7/38/cpetsii-chesnok-rozmarin-perets-dereviannyi-fon-chili.jpg');
+  background-size: cover;
 
 }
 .allrecipestitle{
-  color: #628B48;
+  color: white;
+
   font-family: 'Playfair Display', serif;
   font-size: 35px;
+  font-weight:800;
 }
 // shopping list feature 
 
@@ -377,3 +381,20 @@ font-size: large;
 // svg {
 //   width: 100px;
 // }
+//register page 
+.registerbackground {
+  background-image: url('https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/1012305/910/606/m2/fpnw/wm1/tyhlpnowodzm2wpsksuz240scqzybbtjxpulre9zs8qugxsic4zdhwfixlgupu5u-.jpg?1456015760&s=617284c32d2b0069274c392c366b9f4c');
+}
+
+.registerboxonright{
+  margin-left: 45%
+}
+
+.marginbottomsubtitle{
+  margin-bottom: 20px;
+}
+
+//login page 
+.loginbackground{
+  background-image: url('https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/1010197/910/606/m2/fpnw/wm1/oe3pvqzwoftophvhjphbjls75jxvs7r3ttpjioe8eklqkkjkmg5q48on2mm3qk7o-.jpg?1455930846&s=3e2e28713df801446a553dff3703ac80')
+}

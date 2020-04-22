@@ -44,19 +44,19 @@ class Login extends React.Component {
     const { error } = this.state
     console.log(error)
     return <div className="login-container">
-      <section className="hero is-success is-fullheight">
+      <section className="hero is-success is-fullheight loginbackground">
         <div className="hero-body">
           <div className="container has-text-centered">
-            <div className="column is-4 is-offset-4">
+            <div className="column is-4">
               <div className="login-top">
                 <h1 className="title">Login</h1>
                 <hr className="login-hr" />
-                <p className="subtitle">Please login to proceed.</p>
+                <p className="subtitle marginbottomsubtitle">Please login to proceed.</p>
               </div>
               <div className="box box-override">
                 <div className="transparent-background">
                   <figure className="avatar">
-                    <img src="https://cdn.webshopapp.com/shops/251281/files/208187906/muddaritaville-mu-welcome-small.jpg" />
+                    <img src="https://www.sgs.co.uk/-/media/global/images/structural-website-images/hero-images/hero-agri-appetizers.jpg?la=en-GB" />
                   </figure>
                   <form
                     className="form"
