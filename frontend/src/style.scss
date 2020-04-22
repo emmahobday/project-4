@@ -1,6 +1,21 @@
 //navbar
 .recipenavbar{
-  background-color: #F3F9E3;
+  background-color: #FFFDED;
+}
+
+.navbar-edited {
+transition: 0.2s ease;
+border-bottom: 2px solid transparent;
+padding: 10px;
+color: #241023;
+font-weight: bold;
+font-size: large;
+// font-family: 'Alegreya Sans SC';
+&:hover {
+  // border-bottom: 2px solid white;
+  color: #D8829D !important;
+  // background-color: black !important;
+}
 }
 
 // shopping list feature 
@@ -84,7 +99,7 @@
 
 //fivestarred recipe page 
 .is-fivestarrecipe-primary{
-  background-color: #EDD83D
+  background-color: #ffd800
 }
 .fivestarredrecipetitle {
   font-family: 'Playfair Display', serif;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Link from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Fridge from './Fridge'
 
 
@@ -14,11 +14,9 @@ const Homepage = () => {
 
   function todaysRecipe() {
     dailyRecipe = date
-    // console.log('the date', dailyRecipe)
     while (dailyRecipe > 1000) {
       dailyRecipe = Math.ceil(dailyRecipe / ((dailyRecipe % 15) + 1))
     }
-    // console.log('random recipe', dailyRecipe)
     return dailyRecipe
   }
 
@@ -39,9 +37,11 @@ const Homepage = () => {
       <div className="container">
 
         <div className="columns is-full-mobile is-multiline is-centered mobile-padding">
-          <div className="column is-one-third-desktop is-one-third-tablet">
-            <h1>Todays featured recipe...</h1>
-            {/* <h2>{date}</h2> */}
+          {/* <h1>Todays featured recipe...</h1> */}
+          {/* <h2>{date}</h2> */}
+
+          <Link className="column is-one-third-desktop is-one-third-tablet" to={`/recipe/${featuredRecipeData.id}`}>
+
             <div className="card" >
               <div className="card-image">
                 <figure className="image">
@@ -53,7 +53,9 @@ const Homepage = () => {
                 <div className="subtitle">Serves {featuredRecipeData.servings}</div>
               </div>
             </div>
-          </div>
+
+          </Link>
+
           <div className="column is-one-third-desktop is-one-third-tablet">
             <Fridge />
           </div>
