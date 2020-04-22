@@ -29,7 +29,21 @@ class NavBar extends React.Component {
     return <>
       <nav className="navbar recipenavbar">
         <div className="container navbar-container">
+
           <div className="navbar-brand">
+
+
+
+            <div className="navbar-item navitem">
+              <Link className="navbar-edited" to="/recipes">Find a recipe</Link>
+            </div>
+
+            {/* should be centered - LOGO */}
+            <div className="navbar-item">
+              <Link className="navbar-edited navbar-home" to="/">recipedia</Link>
+            </div>
+
+            {/* burger at the end */}
             <a
               role="button"
               className={`navbar-burger burger ${this.state.navMobileOpen ? 'is-active' : ''}`}
@@ -42,39 +56,20 @@ class NavBar extends React.Component {
               <span aria-hidden="true"></span>
             </a>
           </div>
+
+
           <div className={`navbar-menu ${this.state.navMobileOpen ? 'is-active' : ''}`}>
+            <div className="navbar-start">
+            </div>
             <div className="navbar-end">
-              <div className="navbar-item">
-                <Link className="navbar-edited" to="/">Home</Link>
-              </div>
 
-              <div className="navbar-item navitem">
-                <Link className="navbar-edited" to="/recipes">All Recipes</Link>
-              </div>
 
+              {/* Not logged in - show signup/login */}
               {!isLoggedIn && <div className="navbar-item">
-                <Link className="navbar-edited" to="/register">Register</Link>
+                <Link className="navbar-edited nav-reg-text" to="/register"><small>Sign-up /</small></Link>
+                <Link className="navbar-edited nav-login-text" to="/login"><small>Log-in</small></Link>
               </div>}
 
-              {!isLoggedIn && <div className="navbar-item">
-                <Link className="navbar-edited" to="/login">Login</Link>
-              </div>}
-
-              {isLoggedIn && <div className="navbar-item">
-                <Link className="navbar-edited" to="/fivestarredrecipes">Your Five Starred Recipes</Link>
-              </div>}
-
-              {isLoggedIn && <div className="navbar-item">
-                <Link className="navbar-edited" to="/suggestedrecipes">Suggested Recipes For You</Link>
-              </div>}
-
-              {isLoggedIn && <div className="navbar-item">
-                <Link className="navbar-edited" to="/shoppinglist">Shopping List</Link>
-              </div>}
-
-              {isLoggedIn && <div className="navbar-item">
-                <Link className="navbar-edited" to="/mealplan">Meal Plan</Link>
-              </div>}
 
               {isLoggedIn && <div className="navbar-item has-dropdown is-hoverable navbar-name">
 
@@ -83,6 +78,35 @@ class NavBar extends React.Component {
                 </div>
 
                 <div className="navbar-dropdown">
+
+                  {isLoggedIn && <div className="navbar-item">
+                    <Link className="navbar-edited" to="/fivestarredrecipes">&#9733;&#9733;&#9733;&#9733;&#9733; Recipes</Link>
+                  </div>}
+
+                  {isLoggedIn && <div className="navbar-item">
+                    <Link className="navbar-edited" to="/suggestedrecipes">Suggested For You</Link>
+                  </div>}
+
+                  {isLoggedIn && <div className="navbar-item">
+                    <Link className="navbar-edited" to="/shoppinglist">Shopping List</Link>
+                  </div>}
+
+                  {isLoggedIn && <div className="navbar-item">
+                    <Link className="navbar-edited" to="/mealplan">Meal Plan</Link>
+                  </div>}
+                  <div className="navbar-edited navbar-item">
+                    <div
+                      onClick={() => this.handleLogout()}
+                      className="navbar-item dropdown-item"
+                    >
+                      Log out
+                    </div>
+                  </div>
+
+
+                </div>
+
+                {/* <div className="navbar-dropdown">
                   <div className="navbar-edited">
                     <div
                       onClick={() => this.handleLogout()}
@@ -91,7 +115,7 @@ class NavBar extends React.Component {
                       Log out
                     </div>
                   </div>
-                </div>
+                </div> */}
 
               </div>}
 

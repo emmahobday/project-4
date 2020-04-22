@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Galada&display=swap');
+
 //navbar
 .recipenavbar{
   background-color: #FFFDED;
@@ -10,12 +12,24 @@ padding: 10px;
 color: #241023;
 font-weight: bold;
 font-size: large;
-// font-family: 'Alegreya Sans SC';
+// 
 &:hover {
-  // border-bottom: 2px solid white;
   color: #D8829D !important;
-  // background-color: black !important;
 }
+}
+
+.nav-reg-text {
+  padding-right: 0px;
+}
+
+.nav-login-text {
+  padding-left: 3px;
+}
+
+.navbar-home {
+  margin-left: 20vw;
+  font-family: 'Galada';
+  font-size: 42px;
 }
 
 // shopping list feature 
