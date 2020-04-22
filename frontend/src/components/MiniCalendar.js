@@ -25,7 +25,8 @@ const MiniCalendar = (props) => {
   }
 
   return (<>
-    <h1> Meal plan: add recipe to your chosen date! </h1>
+    <i className="far fa-calendar-plus"></i>
+    <p> Add to menu </p>
     <DatePicker
       selected={date} onChange={handleDateSelection} />
   </>

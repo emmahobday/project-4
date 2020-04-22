@@ -67,7 +67,7 @@ class Fridge extends React.Component {
               />
             </div>
           </div>
-          <div className="field">
+          <div className="field fridgeformfield">
             <div className="control">
               <input
                 className="input is-primary"
@@ -77,7 +77,7 @@ class Fridge extends React.Component {
               />
             </div>
           </div>
-          <div className="field">
+          <div className="field fridgeformfield">
             <div className="control">
               <input
                 className="input is-primary"
@@ -97,46 +97,12 @@ class Fridge extends React.Component {
             }}
 
           >
-            <button className="button is-grouped-centered fridgebutton">Find me a recipe!</button>
+            <button className="button is-grouped-centered fridgebutton fridgeformfield">Find me a recipe!</button>
           </Link>
         </form>
       </section>
 
-      {/* <section>
-
-        <div className="section">
-          <div className="container">
-            <div className="columns is-full-mobile is-multiline is-centered mobile-padding">
-
-              {this.state.data.map(recipe => {
-
-                return <Link key={recipe.id} className="column is-one-quarter-desktop is-one-third-tablet is-full-mobile" to={`recipe/${recipe.id}`}>
-                  <div className="card" >
-                    <div className="card-image">
-                      <figure className="image">
-                        <img src={recipe.image} alt="Placeholder image" className="resImage" />
-                      </figure>
-                    </div>
-                    <div className="card-content">
-                      <div className="subtitle">{recipe.dish_name}</div>
-                      <div className="subtitle">Serves {recipe.servings}</div>
-                    </div>
-
-                  </div>
-                </Link>
-              })}
-
-            </div>
-          </div >
-          {/* <button onClick={() => setPageNumber(pageNumber - 1)} disabled={!fullData.previous}> previous </button>
-          <button onClick={() => setPageNumber(pageNumber + 1)} disabled={!fullData.next} > next </button>
-          <div>
-            {displayPageNumbers.map(page => {
-              return <button onClick={() => setPageNumber(page)} key={page}> {page} </button>
-            })}
-          </div> */}
-      {/* </div > */}
-      {/* // </section> */}
+      
     </div>
   }
 }

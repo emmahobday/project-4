@@ -1,5 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Galada&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Bitter|Galada&display=swap');
 
+
+* {
+  box-sizing: border-box;
+  font-family: 'Bitter', serif;
+}
 //navbar
 .recipenavbar{
   background-color: #FFFDED;
@@ -17,6 +22,22 @@ font-size: large;
   color: #D8829D !important;
   // background-color: black !important;
 }}
+
+.nav-reg-text {
+  padding-right: 0px;
+}
+
+.nav-login-text {
+  padding-left: 3px;
+}
+
+.navbar-home {
+  margin-left: 25vw;
+  // font-family: 'Galada';
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+}
+
 //homepage 
 .is-homepage-primary{
   // background-color: #C8E087;
@@ -49,6 +70,10 @@ font-size: large;
 
 }
 
+// .fridge-input {
+//   margin: 5px 10px !important;
+// }
+
 .fridgebutton {
   background-color:  #628B48;
   color: #fff;
@@ -67,22 +92,9 @@ font-size: large;
   align-items: center;
 }
 
-.nav-reg-text {
-  padding-right: 0px;
-}
-
-.nav-login-text {
-  padding-left: 3px;
-}
-
-.navbar-home {
-  margin-left: 20vw;
-  font-family: 'Galada';
-  font-size: 42px;
-}
-
 .fridgeformfield{
   text-align: center; 
+  margin: 3px;
 }
 
 //all recipes page 
@@ -240,3 +252,128 @@ font-size: large;
 .check {
   margin: 10px;
 }
+
+
+// single recipe page
+.flex-col {
+  display: flex;
+  flex-flow: column nowrap;
+}
+.single-title {
+  font-size: 50px;
+  // font-family: 'Galada';
+  font-family: 'Playfair Display', serif;
+  padding-bottom: 15px;
+  border-bottom: 3px solid lightgrey;
+  text-align: center;
+}
+
+.label-box {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  padding: 15px 0px;
+  border-bottom: 3px solid lightgrey;
+}
+
+.label-tags {
+  background-color: #edd83d;
+  padding: 5px 10px;
+  margin: 5px 15px;
+  font-family: 'Playfair Display', serif;
+}
+
+.detail-box {
+  display: flex;
+  flex-flow: row nowrap;
+  // justify-content: space-evenly;
+  padding: 10px 0px;
+  border-bottom: 3px solid lightgrey;
+}
+
+.vl {
+  border-left: 3px solid lightgrey;
+  margin: 8px 8px;
+  // height: 500px;
+}
+
+.detail-item {
+  margin: 10px 10px;
+  width: 30%;
+  text-align: center;
+  // padding-top: 10px;
+}
+
+.single-image {
+  margin: 10px 5vw;
+  display: block;
+  // max-width:230px;
+  // max-height:95px;
+  width: 80%;
+  height: auto;
+}
+
+.ingredients-box {
+  // border: 3px solid lightgrey;
+  margin-top: 15px;
+}
+
+.list-item {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  padding: 15px;
+  font-size: 18px;
+}
+
+.flex-row {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.calendar-icon {
+  margin: 5px;
+}
+
+.centered-item {
+  text-align: center;
+  margin: auto auto;
+}
+
+.small-heading {
+  font-size: 26px;
+  font-family: 'Playfair Display', serif;
+  border-bottom: 3px solid lightgrey;
+  padding: 0px 10px 15px;
+}
+
+.subheading {
+  font-size: 32px;
+  font-family: 'Playfair Display', serif;
+  padding: 10px;
+}
+
+.nutri-summary-box, .full-nutri-box {
+  margin: 0px 5vw;
+}
+
+.nutri-row {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+.small-nutri-item {
+  text-align: center;
+  // flex-grow: 1;
+  width: 18%;
+  margin: 10px auto;
+  padding: 10px 0px;
+}
+
+.donut-div {
+  width: 28%;
+}
+
+// svg {
+//   width: 100px;
+// }
