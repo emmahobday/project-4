@@ -19,6 +19,14 @@ const SearchResults = () => {
   const { query } = useParams()
   const queryString = query.split('$')[0].split('&').join(' ')
 
+
+
+  // setSearchQuery(query)
+
+  // searchQuery should be:
+  //  - all recipe search --- from params
+  //  - when searching again --- from params?
+
   useEffect(() => {
 
     fetch(`/api/main/recipes/search/${query}?page=${pageNumber}`)
@@ -42,12 +50,19 @@ const SearchResults = () => {
   console.log('query', query)
   console.log('requery', reQuery)
 
+  // already declared - rename if we need this?
   // const queryString = query.split('&').join(' ')
 
 
 
   return (<>
+
+  {/* these three were a clash on merge - check which one works */}
     {query && <h1>You searched for "{queryString}" - {displaySearchResults.length} results</h1>}
+    <h1>You searched for "{reQuery}" - {displaySearchResults.length} results</h1>
+    <h1>You searched for "{queryString}" - {displaySearchResults.length} results</h1>
+
+
     <SearchBar query={reQuery} onChange={() => setReQuery(event.target.value)} />
 
     <div className="section">

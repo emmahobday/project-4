@@ -6,12 +6,14 @@ import Rating from './Rating'
 import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons'
 import DonutChart from 'react-minimal-pie-chart'
 import auth from '../../lib/auth'
+import MiniCalendar from './MiniCalendar'
 
 
 
 const SingleRecipe = (props) => {
   const [singleRecipeData, setSingleRecipeData] = useState(null)
   const id = props.match.params.id
+  const isLoggedIn = auth.isLoggedIn()
 
   function addIngredientToShoppingList(ingredient) {
     axios.post(`/api/main/allrecipestobuyfor/${id}`, { 'ingredient': ingredient }, { headers: { Authorization: `Bearer ${auth.getToken()}` } })
@@ -41,6 +43,7 @@ const SingleRecipe = (props) => {
   if (!singleRecipeData) return <h1> waiting for recipe data </h1>
 
 
+
   return (<section className="section">
     <div className="container">
       <div className="columns">
@@ -52,7 +55,7 @@ const SingleRecipe = (props) => {
           {singleRecipeData.ingredients_lines.map(ingredient => {
             return <>
               <div key={ingredient}> • {ingredient}
-                <button onClick={() => addIngredientToShoppingList(ingredient)}> Add ingredient to shopping list </button>
+                {isLoggedIn && <button onClick={() => addIngredientToShoppingList(ingredient)}> Add ingredient to shopping list </button>}
               </div>
 
             </>
@@ -144,6 +147,8 @@ const SingleRecipe = (props) => {
         </div>
         <div className="column is-one-half">
           <img src={singleRecipeData.image} alt={name} />
+          <MiniCalendar recipeId={id} />
+
         </div>
       </div>
     </div>

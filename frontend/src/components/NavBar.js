@@ -48,9 +48,9 @@ class NavBar extends React.Component {
                 <Link className="navbar-edited" to="/">Home</Link>
               </div>
 
-              {isLoggedIn && <div className="navbar-item">
+              <div className="navbar-item">
                 <Link className="navbar-edited" to="/recipes">All Recipes</Link>
-              </div>}
+              </div>
 
               {!isLoggedIn && <div className="navbar-item">
                 <Link className="navbar-edited" to="/register">Register</Link>
@@ -70,6 +70,10 @@ class NavBar extends React.Component {
 
               {isLoggedIn && <div className="navbar-item">
                 <Link className="navbar-edited" to="/shoppinglist">Shopping List</Link>
+              </div>}
+
+              {isLoggedIn && <div className="navbar-item">
+                <Link className="navbar-edited" to="/mealplan">Meal Plan</Link>
               </div>}
 
               {isLoggedIn && <div className="navbar-item has-dropdown is-hoverable navbar-name">

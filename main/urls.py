@@ -4,6 +4,7 @@ from main.views.recipe import AllRecipesListView, RecipeDetailView, MainProteinR
 from main.views.rating import RatingListView, UsersRatingListView
 from main.views.suggested_recipes import SuggestedRecipesListView
 from main.views.recipe_to_buy_for import RecipeToBuyForListView
+from main.views.meal_plan_recipe import UserMealPlanRecipeListView
 
 
 urlpatterns = [
@@ -18,6 +19,8 @@ urlpatterns = [
     # path('allrecipestobuyfor', RecipeToBuyForListView.as_view())
     path('allrecipestobuyfor/<int:pk>', RecipeToBuyForListView.as_view()),
     path('recipes/type/summary/<str:query>', MainProteinSummaryView.as_view()),
-    # path('recipes/search/<str:query>', AllRecipeSearchList.as_view()),
-    path('recipes/search/<str:query>', AdvancedSearchList.as_view())
+    path('recipes/search/<str:query>', AdvancedSearchList.as_view()),
+    path('recipes/search/<str:query>', AllRecipeSearchList.as_view()),
+    path('mealplanrecipes/', UserMealPlanRecipeListView.as_view())
+
 ]

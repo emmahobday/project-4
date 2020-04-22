@@ -17,10 +17,11 @@ import NavBar from './components/NavBar'
 import Fridge from './components/Fridge'
 import SuggestedRecipes from './components/SuggestedRecipes'
 import ShoppingList from './components/ShoppingList'
-// import AllRecipesByType from './components/AllRecipesByType'
+import AllRecipes from './components/AllRecipes'
 import AllRecipesByType from './components/AllRecipesByType'
 import RecipesByMainProtein from './components/RecipesByMainProtein'
 import SearchResults from './components/SearchResults'
+import MealPlan from './components/MealPlan'
 
 
 const App = () => {
@@ -39,6 +40,7 @@ const App = () => {
       <Route exact path={'/recipes/search/:query'} component={SearchResults} />
       <Route exact path={'/suggestedrecipes/'} component={SuggestedRecipes} />
       <Route exact path={'/shoppinglist/'} component={ShoppingList} />
+      <Route exact path={'/mealplan'} component={MealPlan} />
 
     </Switch>
   </BrowserRouter>
