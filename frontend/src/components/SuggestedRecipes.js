@@ -25,9 +25,6 @@ const SuggestedRecipes = () => {
           <h1 className="recipeheading">
             Suggested Recipes
           </h1>
-          <h2 className="recipesubheading">
-            Customised just for you
-          </h2>
         </div>
       </div>
     </section>
