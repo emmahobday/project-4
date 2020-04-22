@@ -20,7 +20,16 @@ const MealPlan = (props) => {
   if (!data) return <h1> waiting for Calendar </h1>
 
   return (<>
-    <h1 className="mealplantitle"> Your Meal Planner </h1>
+    <section className="hero is-medium is-bold is-allrecipes-primary">
+      <div className="hero-body center">
+        <div className="container">
+          <h1 className="allrecipestitle">
+            Meal Planner 📅
+          </h1>
+        </div>
+      </div>
+    </section>
+    {/* <h1 className="mealplantitle"> Your Meal Planner </h1> */}
     <Calendar data={data} />
   </>
   )

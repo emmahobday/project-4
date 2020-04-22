@@ -52,22 +52,12 @@ class Fridge extends React.Component {
     if (!this.state.data) return <h1> ... </h1>
 
     return <div>
-      <section>
-        <h1>What is in your fridge?</h1>
-        <h2>Enter up to 3 ingredients and we will find you a recipe!</h2>
-        <form
-        >
+      <section className="fridgesection">
+        {/* <h1>RECIPE BY FRIDGE INGREDIENTS</h1> */}
+        <h1 className="homepagesubtitle">Enter up to 3 ingredients</h1>
+        <form className="fridgeform">
 
-          {/* <div class="field">
-  <label class="label">Name</label>
-  <div class="control">
-    <input class="input" type="text" placeholder="Text input">
-  </div>
-</div> */}
-
-
-
-          <div className="field">
+          <div className="field fridgeformfield">
             <div className="control">
               <input
                 className="input is-primary"
@@ -107,7 +97,7 @@ class Fridge extends React.Component {
             }}
 
           >
-            <button className="button is-primary">Find me a recipe!</button>
+            <button className="button is-grouped-centered fridgebutton">Find me a recipe!</button>
           </Link>
         </form>
       </section>
