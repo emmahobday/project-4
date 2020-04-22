@@ -14,11 +14,11 @@ const Homepage = () => {
 
   function todaysRecipe() {
     dailyRecipe = date
-    console.log('the date', dailyRecipe)
+    // console.log('the date', dailyRecipe)
     while (dailyRecipe > 1000) {
       dailyRecipe = Math.ceil(dailyRecipe / ((dailyRecipe % 15) + 1))
     }
-    console.log('random recipe', dailyRecipe)
+    // console.log('random recipe', dailyRecipe)
     return dailyRecipe
   }
 
@@ -26,42 +26,38 @@ const Homepage = () => {
     todaysRecipe()
     axios.get(`/api/main/recipe/${dailyRecipe}`)
       .then(resp => {
-        console.log(resp)
+        // console.log(resp)
         setFeaturedRecipeData(resp.data)
       })
   }, [])
 
   if (!featuredRecipeData) return <h1> waiting for data</h1>
-
-
   todaysRecipe()
-  console.log('dailyrecpe', dailyRecipe)
-  console.log('ftred cp data', featuredRecipeData)
   return <>
     {/* <Link key={featuredRecipeData.dish_name} className="column is-one-fifth-desktop is-one-quarter-tablet is-one-third-mobile" to={`recipe/${featuredRecipeData.id}`}> */}
     <div className="section">
       <div className="container">
 
-        <div className="columns is-full-mobile is-multiline is-centered mobile-padding"></div>
-        <div className="column is-one-third-desktop is-one-third-tablet">
-          <h1>Todays featured recipe...</h1>
-          {/* <h2>{date}</h2> */}
-          <div className="card" >
-            <div className="card-image">
-              <figure className="image">
-                <img src={featuredRecipeData.image} alt="Placeholder image" className="resImage" />
-              </figure>
-            </div>
-            <div className="card-content">
-              <div className="subtitle">{featuredRecipeData.dish_name}</div>
-              <div className="subtitle">Serves {featuredRecipeData.servings}</div>
+        <div className="columns is-full-mobile is-multiline is-centered mobile-padding">
+          <div className="column is-one-third-desktop is-one-third-tablet">
+            <h1>Todays featured recipe...</h1>
+            {/* <h2>{date}</h2> */}
+            <div className="card" >
+              <div className="card-image">
+                <figure className="image">
+                  <img src={featuredRecipeData.image} alt="Placeholder image" className="resImage" />
+                </figure>
+              </div>
+              <div className="card-content">
+                <div className="subtitle">{featuredRecipeData.dish_name}</div>
+                <div className="subtitle">Serves {featuredRecipeData.servings}</div>
+              </div>
             </div>
           </div>
+          <div className="column is-one-third-desktop is-one-third-tablet">
+            <Fridge />
+          </div>
         </div>
-        <div className="column">
-          <Fridge />
-        </div>
-
       </div>
     </div>
 

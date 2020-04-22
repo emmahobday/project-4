@@ -57,11 +57,7 @@ const SearchResults = () => {
 
   return (<>
 
-  {/* these three were a clash on merge - check which one works */}
     {query && <h1>You searched for "{queryString}" - {displaySearchResults.length} results</h1>}
-    <h1>You searched for "{reQuery}" - {displaySearchResults.length} results</h1>
-    <h1>You searched for "{queryString}" - {displaySearchResults.length} results</h1>
-
 
     <SearchBar query={reQuery} onChange={() => setReQuery(event.target.value)} />
 

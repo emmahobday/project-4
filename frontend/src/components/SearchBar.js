@@ -6,6 +6,7 @@ const SearchBar = ({ query, onChange, onSubmit }) => {
 
   const [healthLabels, setHealthLabels] = useState([])
   const [dietLabels, setDietLabels] = useState([])
+  const [hidden, setHidden] = useState(true)
 
   const searchTerms = `${query.split(' ').join('&')}$${dietLabels.join('&')}$${healthLabels.join('&')}`
 
@@ -31,51 +32,83 @@ const SearchBar = ({ query, onChange, onSubmit }) => {
     <form
       onSubmit={(event) => onSubmit(event)}
     >
-      <div className="search">
-        <div className="field">
-          {/* <label className="label is-flex"> <strong className="searchfont"> SEARCH BY RESTAURANT NAME </strong> </label> */}
-          <div className="control">
-            <input
-              className="input is-rounded"
-              type="text"
-              placeholder="Search for a recipe name or ingredient..."
-              value={query}
-              onChange={onChange}>
-            </input>
+      <div className="searchField">
+        <div className="search">
+          <div className="field">
+            {/* <label className="label is-flex"> <strong className="searchfont"> SEARCH BY RESTAURANT NAME </strong> </label> */}
+            <div className="control">
+              <input
+                className="input is-rounded"
+                type="text"
+                placeholder="Search for a recipe name or ingredient..."
+                value={query}
+                onChange={onChange}>
+              </input>
+            </div>
+          </div>
+        </div >
+
+        <Link
+          to={{
+            pathname: `/recipes/search/${searchTerms}`,
+            state: {
+              query: query,
+              searchTerms: searchTerms
+            }
+          }}
+        >
+          <button className='button is-primary' onClick={() => setHidden(true)}>Find me a recipe!</button>
+        </Link>
+      </div>
+
+      <div className={`dropdown ${hidden ? '' : 'is-active'}`}>
+        <div className="dropdown-trigger" onClick={() => setHidden(!hidden)}>
+          <button className="button advanced-search" aria-haspopup="true" aria-controls="dropdown-menu3" onClick={(event) => event.preventDefault()}>
+            <span>Advanced search</span>
+            <span className="icon is-small">
+              <i className="fas fa-angle-down" aria-hidden="true"></i>
+            </span>
+          </button>
+        </div>
+        <div className="dropdown-menu" id="dropdown-menu3" role="menu">
+          <div className="dropdown-content">
+            {/* <h1>Diet labels</h1> */}
+            <label className='checkbox asitem'>Balanced<input type='checkbox' name='Balanced' className='check' onClick={() => handleDietCheck(event.target.checked, event.target.name)} /></label>
+            <label className='checkbox asitem'>High-Protein<input type='checkbox' name='High-Protein' className='check' onClick={() => handleDietCheck(event.target.checked, event.target.name)} /></label>
+            <label className='checkbox asitem'>Low-Carb<input type='checkbox' name='Low-Carb' className='check' onClick={() => handleDietCheck(event.target.checked, event.target.name)} /></label>
+            <label className='checkbox asitem'>Low-Fat<input type='checkbox' name='Low-Fat' className='check' onClick={() => handleDietCheck(event.target.checked, event.target.name)} /></label>
+            <label className='checkbox asitem'>Low-Sodium<input type='checkbox' name='Low-Sodium' className='check' onClick={() => handleDietCheck(event.target.checked, event.target.name)} /></label>
+            <hr className="dropdown-divider" />
+            {/* <h1>Health labels</h1> */}
+            <label className='checkbox asitem'>Alcohol-Free<input type='checkbox' name='Alcohol-Free'className='check'  onClick={() => handleHealthCheck(event.target.checked, event.target.name)} /></label>
+            <label className='checkbox asitem'>Vegetarian<input type='checkbox' name='Vegetarian' className='check' onClick={() => handleHealthCheck(event.target.checked, event.target.name)} /></label>
+            <label className='checkbox asitem'>Peanut-Free<input type='checkbox' name='Peanut-Free' className='check' onClick={() => handleHealthCheck(event.target.checked, event.target.name)} /></label>
+            <label className='checkbox asitem'>Vegan<input type='checkbox' name='Vegan' className='check' onClick={() => handleHealthCheck(event.target.checked, event.target.name)} /></label>
+            <label className='checkbox asitem'>Sugar-Conscious<input type='checkbox' name='Sugar-Conscious' className='check' onClick={() => handleHealthCheck(event.target.checked, event.target.name)} /></label>
+            <label className='checkbox asitem'>Tree-Nut-Free<input type='checkbox' name='Tree-Nut-Free' className='check' onClick={() => handleHealthCheck(event.target.checked, event.target.name)} /></label>
+            <hr className="dropdown-divider" />
+            <Link
+              to={{
+                pathname: `/recipes/search/${searchTerms}`,
+                state: {
+                  query: query,
+                  searchTerms: searchTerms
+                }
+              }}
+            >
+              <button className='button is-primary' onClick={() => setHidden(true)}>Apply filters</button>
+            </Link>
           </div>
         </div>
-      </div >
-
-      <div>
-        <h1>Diet labels</h1>
-        <label className='checkbox'>Balanced<input type='checkbox' name='Balanced' onClick={() => handleDietCheck(event.target.checked, event.target.name)} /></label>
-        <label className='checkbox'>High-Protein<input type='checkbox' name='High-Protein' onClick={() => handleDietCheck(event.target.checked, event.target.name)} /></label>
-        <label className='checkbox'>Low-Carb<input type='checkbox' name='Low-Carb' onClick={() => handleDietCheck(event.target.checked, event.target.name)} /></label>
-        <label className='checkbox'>Low-Fat<input type='checkbox' name='Low-Fat' onClick={() => handleDietCheck(event.target.checked, event.target.name)} /></label>
-        <label className='checkbox'>Low-Sodium<input type='checkbox' name='Low-Sodium' onClick={() => handleDietCheck(event.target.checked, event.target.name)} /></label>
-
-        <h1>Health labels</h1>
-        <label className='checkbox'>Alcohol-Free<input type='checkbox' name='Alcohol-Free' onClick={() => handleHealthCheck(event.target.checked, event.target.name)} /></label>
-        <label className='checkbox'>Vegetarian<input type='checkbox' name='Vegetarian' onClick={() => handleHealthCheck(event.target.checked, event.target.name)}/></label>
-        <label className='checkbox'>Peanut-Free<input type='checkbox' name='Peanut-Free' onClick={() => handleHealthCheck(event.target.checked, event.target.name)}/></label>
-        <label className='checkbox'>Vegan<input type='checkbox' name='Vegan' onClick={() => handleHealthCheck(event.target.checked, event.target.name)}/></label>
-        <label className='checkbox'>Sugar-Conscious<input type='checkbox' name='Sugar-Conscious' onClick={() => handleHealthCheck(event.target.checked, event.target.name)}/></label>
-        <label className='checkbox'>Tree-Nut-Free<input type='checkbox' name='Tree-Nut-Free' onClick={() => handleHealthCheck(event.target.checked, event.target.name)}/></label>
 
       </div>
 
-      <Link
-        to={{
-          pathname: `/recipes/search/${searchTerms}`,
-          state: {
-            query: query,
-            searchTerms: searchTerms
-          }
-        }}
 
-      >
-        <button>Find me a recipe!</button>
-      </Link>
+      <div>
+
+      </div>
+
+
 
     </form>
   </>

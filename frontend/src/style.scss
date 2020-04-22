@@ -55,3 +55,24 @@
   overflow-x: scroll;
 }
 
+.searchField {
+  display: flex;
+  flex-flow: row nowrap;
+  // justify-content: center;
+}
+
+.search {
+  min-width: 80vw;
+}
+
+.dropdown, .advanced-search, .dropdown-menu {
+  min-width: 90vw !important;
+}
+
+.asitem {
+  margin: 5px 25px 5px 10px;
+}
+
+.check {
+  margin: 10px;
+}

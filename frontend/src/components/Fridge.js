@@ -21,6 +21,8 @@ class Fridge extends React.Component {
     }
   }
 
+
+
   handleChange(event) {
     const { name, value } = event.target
     const fields = { ...this.state.fields, [name]: value }
@@ -28,83 +30,89 @@ class Fridge extends React.Component {
     this.setState({ fields })
   }
 
-  handleSubmit(event) {
-    event.preventDefault()
-    axios.get(`/api/main/recipes/fridge/${this.state.fields.query1}&${this.state.fields.query2}&${this.state.fields.query3}`)
-      .then(response => this.setState({
-        data: response.data.results
-      }))
-      .catch(error => this.setState({ error: error.response.data.message }))
-  }
+  // handleSubmit(event) {
+  //   event.preventDefault()
+  //   axios.get(`/api/main/recipes/fridge/${this.state.fields.query1}&${this.state.fields.query2}&${this.state.fields.query3}`)
+  //     .then(response => this.setState({
+  //       data: response.data.results
+  //     }))
+  //     .catch(error => this.setState({ error: error.response.data.message }))
+  // }
+
+
 
   render() {
-    console.log(this.state.data)
-    if (!this.state.data) return <div>
-      <section>
-        <h1>What is in your fridge?</h1>
-        <h2>Enter up to 3 ingredients and we will find you a recipe!</h2>
-        <form
-          onSubmit={(event) => this.handleSubmit(event)}
-        >
-          <div>
-            <input
-              onChange={(event) => this.handleChange(event)}
-              type="text"
-              name="query1"
-            />
-          </div>
-          <div>
-            <input
-              onChange={(event) => this.handleChange(event)}
-              type="text"
-              name="query2"
-            />
-          </div>
-          <div>
-            <input
-              onChange={(event) => this.handleChange(event)}
-              type="text"
-              name="query3"
-            />
-          </div>
-          <button>Find me a recipe!</button>
-        </form>
-      </section>
-    </div>
-    
+    const query = [this.state.fields.query1, this.state.fields.query2, this.state.fields.query3].join('&')
+    const searchTerms = `${query}$$`
+
+    console.log('searchTerms', searchTerms)
+    console.log('query1', this.state.fields.query1)
+    console.log('this.state.data.', this.state.fields)
+
+    if (!this.state.data) return <h1> ... </h1>
+
     return <div>
       <section>
         <h1>What is in your fridge?</h1>
         <h2>Enter up to 3 ingredients and we will find you a recipe!</h2>
         <form
-          onSubmit={(event) => this.handleSubmit(event)}
         >
-          <div>
-            <input
-              onChange={(event) => this.handleChange(event)}
-              type="text"
-              name="query1"
-            />
+
+          {/* <div class="field">
+  <label class="label">Name</label>
+  <div class="control">
+    <input class="input" type="text" placeholder="Text input">
+  </div>
+</div> */}
+
+
+
+          <div className="field">
+            <div className="control">
+              <input
+                className="input is-primary"
+                onChange={(event) => this.handleChange(event)}
+                type="text"
+                name="query1"
+              />
+            </div>
           </div>
-          <div>
-            <input
-              onChange={(event) => this.handleChange(event)}
-              type="text"
-              name="query2"
-            />
+          <div className="field">
+            <div className="control">
+              <input
+                className="input is-primary"
+                onChange={(event) => this.handleChange(event)}
+                type="text"
+                name="query2"
+              />
+            </div>
           </div>
-          <div>
-            <input
-              onChange={(event) => this.handleChange(event)}
-              type="text"
-              name="query3"
-            />
+          <div className="field">
+            <div className="control">
+              <input
+                className="input is-primary"
+                onChange={(event) => this.handleChange(event)}
+                type="text"
+                name="query3"
+              />
+            </div>
           </div>
-          <button>Find me a recipe!</button>
+          <Link
+            to={{
+              pathname: `/recipes/search/${searchTerms}`,
+              state: {
+                // query: query,
+                searchTerms: searchTerms
+              }
+            }}
+
+          >
+            <button className="button is-primary">Find me a recipe!</button>
+          </Link>
         </form>
       </section>
 
-      <section>
+      {/* <section>
 
         <div className="section">
           <div className="container">
@@ -127,7 +135,7 @@ class Fridge extends React.Component {
                   </div>
                 </Link>
               })}
-              
+
             </div>
           </div >
           {/* <button onClick={() => setPageNumber(pageNumber - 1)} disabled={!fullData.previous}> previous </button>
@@ -137,8 +145,8 @@ class Fridge extends React.Component {
               return <button onClick={() => setPageNumber(page)} key={page}> {page} </button>
             })}
           </div> */}
-        </div >
-      </section>
+      {/* </div > */}
+      {/* // </section> */}
     </div>
   }
 }
