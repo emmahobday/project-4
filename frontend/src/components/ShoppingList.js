@@ -62,7 +62,7 @@ const ShoppingList = () => {
       <div className="hero-body center">
         <div className="container">
           <h1 className="shoppinglisttitle ">
-            Shopping List
+            Shopping List 🛒
           </h1>
         </div>
       </div>

@@ -33,8 +33,16 @@ const AllRecipes = () => {
   }, [])
 
   return (<>
+    <section className="hero is-medium is-bold is-allrecipes-primary">
+      <div className="hero-body center">
+        <div className="container">
+          <h1 className="allrecipestitle">
+            Browse All Recipes
+          </h1>
+        </div>
+      </div>
+    </section>
     <section>
-      <h1>Browse recipes</h1>
     </section>
 
     <section>

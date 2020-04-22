@@ -15,7 +15,56 @@ font-size: large;
 // 
 &:hover {
   color: #D8829D !important;
+  // background-color: black !important;
+}}
+//homepage 
+.is-homepage-primary{
+  // background-color: #C8E087;
+  background-image: url('https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+  background-size: cover; 
 }
+
+.featurerecipecolumn{
+  padding-right: 40px;
+}
+
+.homepagetitle{
+  // color: #628B48;
+  font-family: 'Playfair Display', serif;
+  font-size: 45px;
+  color: black;
+  font-weight:800;
+}
+
+.homepagesubtitle{
+  font-size: 25px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+}
+
+.featuredrecipetitle{
+  font-family: 'Playfair Display', serif;
+  font-size: 25px;
+  color: black;
+
+}
+
+.fridgebutton {
+  background-color:  #628B48;
+  color: #fff;
+}
+
+.fridgeform {
+  max-width: 500px;
+  display: flex;
+  // justify-content: center; doesn't do anything
+  
+}
+
+.fridgesection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .nav-reg-text {
@@ -32,6 +81,32 @@ font-size: large;
   font-size: 42px;
 }
 
+.fridgeformfield{
+  text-align: center; 
+}
+
+//all recipes page 
+
+.searchbarcontainer{
+  display:flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+// .advancedsearchbutton{
+//   max-width: 100px;
+// }
+
+.is-allrecipes-primary {
+  background-color: #E8AAC4;
+  margin-bottom: 20px;
+
+}
+.allrecipestitle{
+  color: #628B48;
+  font-family: 'Playfair Display', serif;
+  font-size: 35px;
+}
 // shopping list feature 
 
 .shoppinglisttitle {
@@ -46,8 +121,8 @@ font-size: large;
   padding: 20px;
   // justify-content: center;
   // align-items: center;
-  background-color: #F3F9E3;
-
+  // background-color: #F3F9E3;
+  background-color: #FFFDED;
 }
 
 .shoppinglistimage {
@@ -137,7 +212,9 @@ font-size: large;
 .prevnextbutton {
   color: green
 
-}.scroll {
+}
+
+.scroll {
   overflow-y: hidden;
   overflow-x: scroll;
 }
@@ -153,7 +230,7 @@ font-size: large;
 }
 
 .dropdown, .advanced-search, .dropdown-menu {
-  min-width: 90vw !important;
+  min-width: 88vw !important;
 }
 
 .asitem {

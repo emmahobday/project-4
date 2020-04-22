@@ -33,33 +33,43 @@ const Homepage = () => {
   todaysRecipe()
   return <>
     {/* <Link key={featuredRecipeData.dish_name} className="column is-one-fifth-desktop is-one-quarter-tablet is-one-third-mobile" to={`recipe/${featuredRecipeData.id}`}> */}
+    <section className="hero is-large is-bold is-homepage-primary">
+      <div className="hero-body center">
+        <div className="container">
+          {/* <h1 className="homepagetitle ">
+            RECIPEDIA
+          </h1> */}
+          <h1 className="homepagetitle"> What's in your fridge?</h1>
+          <Fridge />
+        </div>
+      </div>
+    </section>
     <div className="section">
       <div className="container">
 
         <div className="columns is-full-mobile is-multiline is-centered mobile-padding">
-          {/* <h1>Todays featured recipe...</h1> */}
-          {/* <h2>{date}</h2> */}
-
-          <Link className="column is-one-third-desktop is-one-third-tablet" to={`/recipe/${featuredRecipeData.id}`}>
-
-            <div className="card" >
-              <div className="card-image">
-                <figure className="image">
-                  <img src={featuredRecipeData.image} alt="Placeholder image" className="resImage" />
-                </figure>
+          <div className="column is-one-third-desktop is-half-tablet featurerecipecolumn">
+            <h1 className="featuredrecipetitle"> TODAY'S FEATURED RECIPE:</h1>
+            {/* <h2>{date}</h2> */}
+            <Link to={`/recipe/${featuredRecipeData.id}`}>
+              <div className="card" >
+                <div className="card-image">
+                  <figure className="image">
+                    <img src={featuredRecipeData.image} alt="Placeholder image" className="resImage" />
+                  </figure>
+                </div>
+                <div className="card-content">
+                  <div className="subtitle">{featuredRecipeData.dish_name}</div>
+                  <div className="subtitle">Serves {featuredRecipeData.servings}</div>
+                </div>
               </div>
-              <div className="card-content">
-                <div className="subtitle">{featuredRecipeData.dish_name}</div>
-                <div className="subtitle">Serves {featuredRecipeData.servings}</div>
-              </div>
-            </div>
-
-          </Link>
-
-          <div className="column is-one-third-desktop is-one-third-tablet">
-            <Fridge />
+            </Link>
           </div>
         </div>
+        {/* <div className="column is-two-thirds-desktop is-half-tablet">
+            <h1 className="featuredrecipetitle"> RECIPE BY FRIDGE INGREDIENTS</h1>
+            <Fridge />
+          </div> */}
       </div>
     </div>
 
