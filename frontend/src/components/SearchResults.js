@@ -17,6 +17,7 @@ const SearchResults = () => {
 
   // this comes directly from the URL
   const { query } = useParams()
+  const queryString = query.split('$')[0].split('&').join(' ')
 
   useEffect(() => {
 
@@ -46,7 +47,7 @@ const SearchResults = () => {
 
 
   return (<>
-    <h1>You searched for "{reQuery}" - {displaySearchResults.length} results</h1>
+    {query && <h1>You searched for "{queryString}" - {displaySearchResults.length} results</h1>}
     <SearchBar query={reQuery} onChange={() => setReQuery(event.target.value)} />
 
     <div className="section">

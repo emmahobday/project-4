@@ -15,7 +15,6 @@ const SearchBar = ({ query, onChange, onSubmit }) => {
     } else {
       const newArr = dietLabels.filter(item => item !== label)
       setDietLabels(newArr)
-
     }
   }
 
@@ -46,7 +45,6 @@ const SearchBar = ({ query, onChange, onSubmit }) => {
           </div>
         </div>
       </div >
-
 
       <div>
         <h1>Diet labels</h1>

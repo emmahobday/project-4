@@ -7,20 +7,35 @@ const Homepage = () => {
 
   const [featuredRecipeData, setFeaturedRecipeData] = useState(null)
 
+  const today = new Date()
+  const date = today.getFullYear() + (today.getMonth() + 1) + today.getDate()
+  let dailyRecipe = todaysRecipe()
+
+  function todaysRecipe() {
+    dailyRecipe = date
+    console.log('the date', dailyRecipe)
+    while (dailyRecipe > 1000) {
+      dailyRecipe = Math.ceil(dailyRecipe / (dailyRecipe % 15))
+    }
+    console.log('random recipe', dailyRecipe)
+    return dailyRecipe
+  }
+
   useEffect(() => {
-    axios.get(`/api/main/recipe/${Math.ceil(142.8)}`)
+    todaysRecipe()
+    axios.get(`/api/main/recipe/${dailyRecipe}`)
       .then(resp => {
         console.log(resp)
         setFeaturedRecipeData(resp.data)
       })
   }, [])
 
-  const date = new Date()
-
   if (!featuredRecipeData) return <h1> waiting for data</h1>
 
 
-
+  todaysRecipe()
+  console.log('dailyrecpe', dailyRecipe)
+  console.log('ftred cp data', featuredRecipeData)
   return <>
     {/* <Link key={featuredRecipeData.dish_name} className="column is-one-fifth-desktop is-one-quarter-tablet is-one-third-mobile" to={`recipe/${featuredRecipeData.id}`}> */}
     <div className="section">

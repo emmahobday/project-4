@@ -95,6 +95,7 @@ class AllRecipeSearchList(ListCreateAPIView):
   def get(self, request, query): 
     number_of_terms = len(query.split('&'))
     termsArray = query.split('&')
+    
     # recipes = []
     # unique_recipes = set()
     # unique_recipes_2 = list(unique_recipes)
