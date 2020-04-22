@@ -57,37 +57,48 @@ const ShoppingList = () => {
 
   if (!data.length) return <h1> Add some ingredients to cook up a storm! </h1>
 
-  return (<div className="section1">
-    <h1 className="shoppinglisttitle"> Your Shopping List </h1>
-    <div className="shoppinglistcontainer">
-
-      {data.map(recipe => {
-        return <div key={recipe.recipe.id} className="individualrecipecontainer">
-          <div className="recipetextcolumn">
-            <div className="subtitle"> {recipe.recipe.dish_name}</div>
-
-            {recipe.ingredients_to_buy_for.map(ingredient => {
-              return <IngredientLine key={ingredient} recipeId={recipe.recipe.id} ingredient={ingredient} />
-
-            })
-            }
-
-          </div>
-          <div className="recipeimagecolumn">
-            <Link to={`recipe/${recipe.recipe.id}`}>
-              <figure className="image1">
-                <img src={recipe.recipe.image} alt="Placeholder image" className="resImage" />
-              </figure>
-            </Link>
-
-          </div>
+  return (<>
+    <section className="hero is-medium is-bold is-shoppinglist-primary">
+      <div className="hero-body center">
+        <div className="container">
+          <h1 className="shoppinglisttitle ">
+            Shopping List
+          </h1>
         </div>
+      </div>
+    </section>
+    <div className="section1">
+      {/* <h1 className="shoppinglisttitle"> Your Shopping List </h1> */}
+      <div className="shoppinglistcontainer">
+
+        {data.map(recipe => {
+          return <div key={recipe.recipe.id} className="individualrecipecontainer">
+            <div className="recipetextcolumn">
+              <div className="subtitle recipetobuyfor"> {recipe.recipe.dish_name}</div>
+
+              {recipe.ingredients_to_buy_for.map(ingredient => {
+                return <IngredientLine key={ingredient} recipeId={recipe.recipe.id} ingredient={ingredient} />
+
+              })
+              }
+
+            </div>
+            <div className="recipeimagecolumn">
+              <Link to={`recipe/${recipe.recipe.id}`}>
+                <figure className="image1">
+                  <img src={recipe.recipe.image} alt="Placeholder image" className="resImage shoppinglistimage" />
+                </figure>
+              </Link>
+
+            </div>
+          </div>
 
 
-      })}
+        })}
 
+      </div >
     </div >
-  </div >)
+  </>)
 }
 
 export default ShoppingList

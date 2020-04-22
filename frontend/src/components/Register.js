@@ -28,11 +28,11 @@ class Register extends React.Component {
       this.state.data)
       .then(res => console.log('response ', res))
       .then(() => {
-        console.log('hi')
         this.props.history.push('/login')
       })
       .catch(error => {
-        console.log(error.response.data)
+        console.log('line 34', error.response)
+        console.log('line 35', error.response.data)
         this.setState({ errors: error.response.data.errors })
       })
   }
