@@ -13,6 +13,7 @@ import MiniCalendar from './MiniCalendar'
 const SingleRecipe = (props) => {
   const [singleRecipeData, setSingleRecipeData] = useState(null)
   const id = props.match.params.id
+  const isLoggedIn = auth.isLoggedIn()
 
   function addIngredientToShoppingList(ingredient) {
     axios.post(`/api/main/allrecipestobuyfor/${id}`, { 'ingredient': ingredient }, { headers: { Authorization: `Bearer ${auth.getToken()}` } })
@@ -42,6 +43,7 @@ const SingleRecipe = (props) => {
   if (!singleRecipeData) return <h1> waiting for recipe data </h1>
 
 
+
   return (<section className="section">
     <div className="container">
       <div className="columns">
@@ -53,7 +55,7 @@ const SingleRecipe = (props) => {
           {singleRecipeData.ingredients_lines.map(ingredient => {
             return <>
               <div key={ingredient}> • {ingredient}
-                <button onClick={() => addIngredientToShoppingList(ingredient)}> Add ingredient to shopping list </button>
+                {isLoggedIn && <button onClick={() => addIngredientToShoppingList(ingredient)}> Add ingredient to shopping list </button>}
               </div>
 
             </>

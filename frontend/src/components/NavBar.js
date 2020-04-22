@@ -48,9 +48,9 @@ class NavBar extends React.Component {
                 <Link className="navbar-edited" to="/">Home</Link>
               </div>
 
-              {isLoggedIn && <div className="navbar-item">
+              <div className="navbar-item">
                 <Link className="navbar-edited" to="/recipes">All Recipes</Link>
-              </div>}
+              </div>
 
               {!isLoggedIn && <div className="navbar-item">
                 <Link className="navbar-edited" to="/register">Register</Link>

@@ -9,32 +9,19 @@ const MealPlan = (props) => {
   useEffect(() => {
     axios.get('api/main/mealplanrecipes/', { headers: { Authorization: `Bearer ${auth.getToken()}` } })
       .then(resp => {
-        console.log('this is resp', resp)
-        setData(resp.data)
+        const newData = resp.data.map(mpr => {
+          const newEntry = { startDate: `${mpr.date}T09:45`, endDate: `${mpr.date}T09:46`, title: `${mpr.recipe.dish_name}` }
+          return { ...mpr, entry: newEntry }
+        })
+        setData(newData)
       })
   }, [])
 
-
-
-  // function handleDateSelection(date) {
-  //   setDate(date)
-  //   const newDate = dayjs(date).format('YYYY-MM-DD')
-  //   console.log('date', newDate)
-  //   console.log('this is the date', date)
-  //   console.log('this is recipe id', props.recipeId)
-  //   axios.post('/api/main/mealplanrecipes/', {
-  //     recipe: props.recipeId,
-  //     date: newDate
-  //   },
-  //     { headers: { Authorization: `Bearer ${auth.getToken()}` } })
-  //     .then(res => console.log(res))
-  //     .catch(err => console.log(err))
-  //   // user/mealplanrecipes
-  // }
+  if (!data) return <h1> waiting for Calendar </h1>
 
   return (<>
     <h1> put a full size calander down here </h1>
-    <Calendar />
+    <Calendar data={data} />
   </>
   )
 }
