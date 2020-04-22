@@ -1,8 +1,14 @@
+//navbar
+.recipenavbar{
+  background-color: #F3F9E3;
+}
 
 // shopping list feature 
+
 .shoppinglisttitle {
+  color: #628B48;
+  font-family: 'Playfair Display', serif;
   font-size: 40px;
-  
 }
 
 .shoppinglistcontainer {
@@ -11,31 +17,84 @@
   padding: 20px;
   // justify-content: center;
   // align-items: center;
+  background-color: #F3F9E3;
 
+}
+
+.shoppinglistimage {
+  border-radius: 10px;
 }
 
 .individualrecipecontainer{
   display: flex;
   width: 100%;
-  border: 1px purple solid;
+  // border: 1px purple solid;
   justify-content: space-between;
   padding: 20px;
+  // margin-top: 10px;
 }
 
-.recipetextcolumn {
+.is-shoppinglist-primary {
+  background-color: #E8AAC4;
+  font-weight: 800;
 }
 
-.recipeimagecolumn {
+.recipetobuyfor {
+  color: #628B48;
+  font-size: 29px;
+
+
 }
+.ingredientline {
+  // color: #628B48;
+  font-size: 16px;
 
-
+}
 .strikethrough {
   text-decoration: line-through;
+}
 
+// suggested recipe page 
+.suggestedrecipetitle {
+  color: #73b504;
+  color: #F3F9E3;
+  font-weight: 500;
+}
+
+.recipeheading {
+  font-family: 'Playfair Display', serif;
+  color: #628B48;
+  font-size: 30px;
+}
+.recipesubheading {
+  font-family: 'Playfair Display', serif;
+  color: #628B48;
+  font-size: 20px;
+}
+.is-recipe-primary {
+  // background-color: #44B242;
+  background-color: #F3F9E3;
+  color: white;
+  // background-image: url('https://i.pinimg.com/originals/db/82/81/db82812eecaea9306e889e262514e7fc.jpg');
+
+}
+.center {
+  text-align: center;
+}
+
+//fivestarred recipe page 
+.is-fivestarrecipe-primary{
+  background-color: #EDD83D
+}
+.fivestarredrecipetitle {
+  font-family: 'Playfair Display', serif;
+  color: #628B48;
+  font-size: 30px;
 }
 
 
-// all recipes 
+
+// all recipes page 
 .allpagebuttons {
   margin-top: 20px;
 }
@@ -44,7 +103,6 @@
   font-size: 20px; 
   margin: 5px;
   margin-top: 10px;
-
 }
 
 .prevnextbutton {

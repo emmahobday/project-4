@@ -32,11 +32,12 @@ class Login extends React.Component {
         const name = response.data.message
         auth.setToken(token)
         auth.setName(name)
-        // console.log(response)
-        // console.log(name)
         this.props.history.push('/')
       })
-      .catch(error => this.setState({ error: error.response.data.message }))
+      .catch(error => {
+        // console.log('line 40', error.response)
+        this.setState({ error: error.response.data.message })
+      })
   }
 
   render() {

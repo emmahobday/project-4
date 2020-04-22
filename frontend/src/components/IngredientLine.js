@@ -36,7 +36,7 @@ const IngredientLine = (props) => {
   }
 
   return (
-    <div key={props.ingredient} className={isCompleted ? 'strikethrough' : ''}> {props.ingredient}
+    <div key={props.ingredient} className={isCompleted ? 'strikethrough' : '', 'ingredientline'}> {props.ingredient}
       <label className="checkbox">
         <input type="checkbox" onClick={() => handleCheck(event.target.checked, props.ingredient)} />
       </label>

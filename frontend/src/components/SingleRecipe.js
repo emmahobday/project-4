@@ -51,7 +51,8 @@ const SingleRecipe = (props) => {
           <h1 className="title">{singleRecipeData.dish_name}</h1>
 
           {auth.getToken() && <Rating recipeId={id} rating={singleRecipeData && singleRecipeData.rating} />}
-          <h2> ingredients</h2>
+          <h2> Ingredients (serves {singleRecipeData.servings}) </h2>
+
           {singleRecipeData.ingredients_lines.map(ingredient => {
             return <>
               <div key={ingredient}> • {ingredient}
@@ -86,14 +87,6 @@ const SingleRecipe = (props) => {
           <h2>Get the full recipe at <a href={singleRecipeData.instructions_url} rel='noopener noreferrer' target='_blank'>{singleRecipeData.source}</a>.</h2>
 
           <p>Serves {singleRecipeData.servings}</p>
-
-          <h2>Ingredients:</h2>
-          <ul>
-            {singleRecipeData.ingredients_lines.map(ingredient =>
-              <li key={ingredient}>
-                {ingredient}
-              </li>)}
-          </ul>
 
           <div className="nutrition">
             <h3>Nutritional information</h3>

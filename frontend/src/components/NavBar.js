@@ -27,7 +27,7 @@ class NavBar extends React.Component {
   render() {
     const isLoggedIn = auth.isLoggedIn()
     return <>
-      <nav className="navbar is-black">
+      <nav className="navbar recipenavbar">
         <div className="container navbar-container">
           <div className="navbar-brand">
             <a
@@ -48,7 +48,7 @@ class NavBar extends React.Component {
                 <Link className="navbar-edited" to="/">Home</Link>
               </div>
 
-              <div className="navbar-item">
+              <div className="navbar-item navitem">
                 <Link className="navbar-edited" to="/recipes">All Recipes</Link>
               </div>
 

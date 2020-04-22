@@ -20,7 +20,7 @@ const MealPlan = (props) => {
   if (!data) return <h1> waiting for Calendar </h1>
 
   return (<>
-    <h1> put a full size calander down here </h1>
+    <h1 className="mealplantitle"> Your Meal Planner </h1>
     <Calendar data={data} />
   </>
   )
