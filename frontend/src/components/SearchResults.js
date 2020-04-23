@@ -63,14 +63,12 @@ const SearchResults = () => {
         </div>
       </div>
     </section>
-    <section>
+
+    <section className="neutral pad-top">
+      {query && <h1>You searched for "{queryString}" - {displaySearchResults.length} results</h1>}
+      <SearchBar query={reQuery} onChange={() => setReQuery(event.target.value)} />
     </section>
-
-    {query && <h1>You searched for "{queryString}" - {displaySearchResults.length} results</h1>}
-
-    <SearchBar query={reQuery} onChange={() => setReQuery(event.target.value)} />
-
-    <div className="section">
+    <div className="section neutral">
       <div className="container">
         <div className="columns is-full-mobile is-multiline is-centered mobile-padding">
 

@@ -32,7 +32,7 @@ const RecipesByMainProtein = (props) => {
         </div>
       </div>
     </section>
-    <div className="section">
+    <div className="section neutral">
       <div className="container">
         <div className="columns is-full-mobile is-multiline is-centered mobile-padding">
 

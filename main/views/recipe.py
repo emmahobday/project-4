@@ -31,8 +31,6 @@ class RecipeDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = DetailedRecipeSerializer
 
 # this returns recipes that have main_protein that matches the search filter taken from the URL of the GET request
-
-
 class MainProteinRecipeView(ListCreateAPIView):
     serializer_class = BasicRecipeSerializer
     pagination_class = AllRecipesPagination
@@ -68,7 +66,6 @@ class DietLabelRecipeView(ListCreateAPIView):
 
 # this takes up to 3 search terms from the URL of the GET request (named query - in the urls.py) and returns recipes that include these search terms in the ingredients list
 class FridgeRecipeView(ListCreateAPIView):
-    # queryset = Recipe.objects.filter(ingredients_lines__icontains='')
     serializer_class = BasicRecipeSerializer
     pagination_class = AllRecipesPagination
 
@@ -102,35 +99,7 @@ class AllRecipeSearchList(ListCreateAPIView):
   pagination_class = AllRecipesPagination 
 
   def get(self, request, query): 
-    # number_of_terms = len(query.split('&'))
     termsArray = query.split('&')
-    
-    # recipes = []
-    # unique_recipes = set()
-    # unique_recipes_2 = list(unique_recipes)
-
-    # for term in termsArray:
-    #   # print(termsArray)
-    #   recipes.append(self.paginate_queryset(Recipe.objects.filter(
-    #   Q(ingredients_lines__icontains=term) | Q(dish_name__icontains=term)
-    #   )))
-
-    # for recipe_list in recipes:
-    #   for recipe in recipe_list:
-    #     unique_recipes.add(recipe)
-      
-
-    # recipes.filter
-        # else:
-        #   break
-
-        # recipes = self.paginate_queryset(Recipe.objects.filter(
-        #   for term in termsArray:
-        #       return Q(ingredients_lines__icontains=term | Q(dish_name__icontains=term),
-        #     )
-
-        # queryTerm = Q(ingredients_lines__icontains=termsArray[0]) | Q(dish_name__icontains=termsArray[0])
-
     queryTerms = []
 
     for term in termsArray:

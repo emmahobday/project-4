@@ -29,7 +29,7 @@ const SuggestedRecipes = () => {
         </div>
       </div>
     </section>
-    <div className="section">
+    <div className="section neutral">
       {/* <h1 className="title suggestedrecipetitle"> Suggested Recipes For You </h1> */}
       <div className="container">
         <div className="columns is-full-mobile is-multiline is-centered mobile-padding">
