@@ -54,9 +54,6 @@ class Register extends React.Component {
               </div>
               <div className="box box-override">
                 <div className="transparent-background">
-                  <figure className="avatar">
-                    {/* <img src="https://cdn.webshopapp.com/shops/251281/files/208187906/muddaritaville-mu-welcome-small.jpg" /> */}
-                  </figure>
                   <form
                     className="form"
                     onSubmit={(event) => this.handleSubmit(event)}

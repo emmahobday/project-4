@@ -21,8 +21,6 @@ class Fridge extends React.Component {
     }
   }
 
-
-
   handleChange(event) {
     const { name, value } = event.target
     const fields = { ...this.state.fields, [name]: value }
@@ -102,7 +100,7 @@ class Fridge extends React.Component {
         </form>
       </section>
 
-      
+
     </div>
   }
 }

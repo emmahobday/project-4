@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import auth from '../../lib/auth'
+import LoadSpinner from './LoadSpinner'
 
 const SuggestedRecipes = () => {
   const [data, setData] = useState([])
@@ -16,10 +17,10 @@ const SuggestedRecipes = () => {
       })
   }, [])
 
-  if (!data) return <h1> waiting for recipe data </h1>
+  if (!data.length) return <LoadSpinner />
 
   return (<>
-    <section className="hero is-medium is-bold is-recipe-primary">
+    <section className="hero is-medium is-bold is-suggested-primary">
       <div className="hero-body center">
         <div className="container">
           <h1 className="recipeheading">

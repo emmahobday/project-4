@@ -25,26 +25,25 @@ class UserMealPlanRecipeListView(APIView):
             return Response(serializer.data, status=HTTP_201_CREATED)
         return Response(serializer.data, status=HTTP_422_UNPROCESSABLE_ENTITY)
 
-        # queryset = Rating.objects.all()
-        # serializer_class = BasicRatingSerializer(data)
+    def delete(self, request):
+        user = request.user
+        serializer = BasicMPRSerializer
+        mprecipe = Meal_plan_recipe.objects.get(
+            user=request.user,
+            recipe=request.recipe)
+        mprecipe.delete()
+        return Response(status=HTTP_204_NO_CONTENT)
 
-        # def post(self, request):
-        #     # get the user posting
-        #     user = request.user
-        #     # Turn the json into data we can store in psql.
 
-        #     # this passes the data to the serializer (request.data will have rating_num and recipe )
-        #     serializer = BasicRatingSerializer(data=request.data)
-        #     # I'll have validation on the frontend. as in user can only rate using the stars
-        #     if serializer.is_valid(raise_exception=True):
-        #         # this creates the object in the ratings table
-        #         serializer.save(user=user)
-        #         return Response(serializer.data, status=HTTP_201_CREATED)
-        # #     return Response(serializer.data, status=HTTP_422_UNPROCESSABLE_ENTITY)
+# Notes
+# # this deletes the entire recipe to buy for (i.e removes all the ingredients for that recipe to buy for, for that user)
 
-        # class UsersRatingListView(APIView):
-        #     def get(self, request):
-        #         ratings = Rating.objects.filter(
-        #             user=request.user, rating_num=5)
-        #         serializer = PopulatedRatingSerializer(ratings, many=True)
-        #         return Response(serializer.data)
+#     def delete(self, request, pk):
+#         recipe = Recipe.objects.get(id=pk)
+#         recipe_to_buy_for = Recipe_to_buy_for.objects.get(
+#             shopping_list=request.user.shopping_list,
+#             recipe=recipe
+#         )
+
+#         recipe_to_buy_for.delete()
+#         return Response(status=HTTP_204_NO_CONTENT)

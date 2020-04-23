@@ -7,8 +7,6 @@ import axios from 'axios'
 import auth from '../../lib/auth'
 
 
-
-
 // need to remember that it's rated before when page loads 
 
 const Rating = (props) => {

@@ -19,6 +19,7 @@ class PopulatedMPRSerializer(serializers.ModelSerializer):
         model = Meal_plan_recipe
         fields = ('date', 'recipe', 'user')
 
+
 # class PopulatedRatingSerializer(serializers.ModelSerializer):
 #   #nested serializers here for recipe and user.
 #   from main.serializers.recipe import BasicRecipeSerializer

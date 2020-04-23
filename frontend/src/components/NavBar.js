@@ -71,7 +71,7 @@ class NavBar extends React.Component {
               {isLoggedIn && <div className="navbar-item has-dropdown is-hoverable navbar-name">
 
                 <div className="navbar-link">
-                  <Link className="navbar-edited" to="/profile">{auth.getName()}</Link>
+                  <Link className="navbar-edited" to="/">{auth.getName()}</Link>
                 </div>
 
                 <div className="navbar-dropdown">
