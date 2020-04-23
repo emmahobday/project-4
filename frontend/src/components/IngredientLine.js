@@ -22,6 +22,7 @@ const IngredientLine = (props) => {
   }
 
 
+
   function handleCheck(e, ingredient) {
     console.log(e, 'hi')
     // e is the result of checking the tickbox 
