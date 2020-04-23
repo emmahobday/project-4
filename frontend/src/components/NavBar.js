@@ -77,7 +77,7 @@ class NavBar extends React.Component {
                 <div className="navbar-dropdown">
 
                   {isLoggedIn && <div className="navbar-item">
-                    <Link className="navbar-edited" to="/fivestarredrecipes">&#9733;&#9733;&#9733;&#9733;&#9733; Recipes</Link>
+                    <Link className="navbar-edited" to="/fivestarredrecipes"> Your &#9733;&#9733;&#9733;&#9733;&#9733; Recipes</Link>
                   </div>}
 
                   {isLoggedIn && <div className="navbar-item">
