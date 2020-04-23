@@ -71,6 +71,7 @@ const SingleRecipe = (props) => {
             {!isLoggedIn && <Link to='/login' className='login-link'><FontAwesomeIcon icon={faStarEmpty} /><FontAwesomeIcon icon={faStarEmpty} /><FontAwesomeIcon icon={faStarEmpty} /><FontAwesomeIcon icon={faStarEmpty} /><FontAwesomeIcon icon={faStarEmpty} /></Link>}
           </div>
           <div className="vl"></div>
+
           {auth.getToken() && <div className="detail-item flex-row">
             <div className="centered-item">
               <FontAwesomeIcon icon={faCalendarPlus} className="calendar-icon" />
@@ -79,14 +80,17 @@ const SingleRecipe = (props) => {
               <MiniCalendar recipeId={id} />
             </div>
           </div>}
-          {!isLoggedIn && <Link to='/login' className='login-link'><div className="detail-item flex-row">
+
+          {!isLoggedIn && <div className="detail-item flex-row">
             <div className="centered-item">
-              <FontAwesomeIcon icon={faCalendarPlus} className="calendar-icon" />
+              <Link to='/login' className='login-link'><FontAwesomeIcon icon={faCalendarPlus} className="calendar-icon" /></Link>
             </div>
-            <div className="centered-item">
+
+            <Link to='/login' className='login-link'><div className="centered-item">
               <MiniCalendar recipeId={id} />
-            </div>
-          </div></Link>}
+            </div></Link>
+          </div>}
+
           <div className="vl"></div>
           <div className="detail-item">
             <p>Get the full recipe at <a href={singleRecipeData.instructions_url} rel='noopener noreferrer' target='_blank'>{singleRecipeData.source}</a>.</p>

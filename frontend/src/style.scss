@@ -436,7 +436,7 @@ font-size: large;
 .dropdown, .advanced-search, .dropdown-menu {
   min-width: 60vw !important;
   border-color: transparent !important;
-  text-align: left;
+  text-align: center;
   font-size: 14px;
 }
 
@@ -613,4 +613,8 @@ font-size: large;
 .spinner{
   margin-top: 40vh;
   text-align: center;
+}
+
+.register-here {
+  margin: 20px 10px 10px;
 }

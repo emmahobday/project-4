@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 // import { Parallax } from 'react-parallax'
@@ -100,6 +101,7 @@ class Login extends React.Component {
                       <FontAwesomeIcon icon={faSignInAlt} />
                       {/* <FontAwesomeIcon icon={faThumbsUp} /> */}
                     </button>
+                    <p className='register-here'>Don't have an account yet? <Link to={'/register'}>Register here.</Link></p>
                   </form>
                 </div>
               </div>
