@@ -2,17 +2,15 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import SearchBar from './SearchBar'
+import LoadSpinner from './LoadSpinner'
 
 
 const AllRecipes = () => {
   const proteins = ['chicken', 'salmon', 'pasta', 'beef', 'prawn', 'lamb', 'cheese', 'tuna', 'tofu', 'salad', 'scallop', 'pork', 'egg', 'potato', 'rice', 'mussels', 'beans', 'cod', 'crab', 'falafel']
   const [recipes, setRecipes] = useState([[{ main_protein: '' }]])
   const [query, setQuery] = useState('')
-  // const [searchResults, setSearchResults] = useState([])
 
   const searchTerms = query.split(' ')
-  console.log('search terms', searchTerms)
-  // console.log('search results', searchResults)
 
 
   useEffect(() => {
@@ -23,7 +21,8 @@ const AllRecipes = () => {
         fetch(`/api/main/recipes/type/summary/${protein}`)
           .then(resp => resp.json())
           .then(resp => {
-            finalArray.push(resp.results.concat({ 'id': `section/${protein}`, 'image': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Plus_symbol.svg/1200px-Plus_symbol.svg.png', 'dish_name': 'See more' }))
+            console.log(resp),
+              finalArray.push(resp.results.concat({ 'id': `section/${protein}`, 'image': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Plus_symbol.svg/1200px-Plus_symbol.svg.png', 'dish_name': 'See more' }))
           }))
     })
     Promise.all(promises)
@@ -31,6 +30,10 @@ const AllRecipes = () => {
         setRecipes(finalArray)
       })
   }, [])
+
+  //when all the proteins load recipes.length will be 20
+  if (recipes.length < 20) return <LoadSpinner />
+
 
   return (<>
     <section className="hero is-medium is-bold is-allrecipes-primary">
@@ -81,9 +84,6 @@ const AllRecipes = () => {
         </>
       })}
     </div>
-
-
-
 
   </>)
 }

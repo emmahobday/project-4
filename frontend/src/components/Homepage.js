@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import auth from '../../lib/auth'
 import Fridge from './Fridge'
+import LoadSpinner from './LoadSpinner'
 
 
 const Homepage = () => {
@@ -33,7 +34,7 @@ const Homepage = () => {
 
   const isLoggedIn = auth.isLoggedIn()
 
-  if (!featuredRecipeData) return <h1> waiting for data</h1>
+  if (!featuredRecipeData) return <LoadSpinner />
   todaysRecipe()
   return <>
     {/* <Link key={featuredRecipeData.dish_name} className="column is-one-fifth-desktop is-one-quarter-tablet is-one-third-mobile" to={`recipe/${featuredRecipeData.id}`}> */}
@@ -150,7 +151,7 @@ const Homepage = () => {
       </div>
       <h3 className="footer-heading">CREATED BY</h3>
       <div className="footer-end">
-        <a href={'https://emmahobday.github.io/'} rel='noopener noreferrer' target='_blank' className='footer-item'>Denise Cheung </a>
+        <a href={'https://denisecheung3.github.io/'} rel='noopener noreferrer' target='_blank' className='footer-item'>Denise Cheung </a>
         <p className='footer-item'> and </p>
         <a href={'https://emmahobday.github.io/'} rel='noopener noreferrer' target='_blank' className='footer-item'> Emma Hobday</a>
       </div>

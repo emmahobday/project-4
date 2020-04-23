@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import auth from '../../lib/auth'
 import Calendar from './Calander'
+import LoadSpinner from './LoadSpinner'
 
 const MealPlan = (props) => {
   const [data, setData] = useState(null)
@@ -17,7 +18,7 @@ const MealPlan = (props) => {
       })
   }, [])
 
-  if (!data) return <h1> waiting for Calendar </h1>
+  if (!data) return <LoadSpinner />
 
   return (<>
     <section className="hero is-medium is-bold is-allrecipes-primary">

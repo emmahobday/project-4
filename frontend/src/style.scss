@@ -220,6 +220,25 @@ font-size: large;
   font-weight:1000;
 }
 // shopping list feature 
+.emptyshoppinglistbackground{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-image: url("https://res.cloudinary.com/grohealth/image/upload/v1583843120/DCUK/Content/Surprisingly-High-Carb-Food.png");
+  background-size: cover;
+}
+
+.add {
+  color: #D8829D;
+  font-family: 'Playfair Display', serif;
+  font-size: 35px;
+  text-align: center;
+  font-weight: 1000;
+  // margin-top: 40vh;
+  
+
+}
 
 .shoppinglisttitle {
   color: white;
@@ -281,22 +300,18 @@ font-size: large;
   font-weight: 500;
 }
 
+
 .recipeheading {
   font-family: 'Playfair Display', serif;
-  color: #628B48;
+  color: black;
   font-size: 30px;
+  font-weight: 800
 }
-.recipesubheading {
-  font-family: 'Playfair Display', serif;
-  color: #628B48;
-  font-size: 20px;
-}
-.is-recipe-primary {
-  // background-color: #44B242;
-  background-color: #F3F9E3;
-  color: white;
-  // background-image: url('https://i.pinimg.com/originals/db/82/81/db82812eecaea9306e889e262514e7fc.jpg');
 
+.is-suggested-primary {
+  color: white;
+  background-image: url('https://images.unsplash.com/photo-1543352634-a1c51d9f1fa7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80');
+  background-size: cover;
 }
 .center {
   text-align: center;
@@ -304,11 +319,14 @@ font-size: large;
 
 //fivestarred recipe page 
 .is-fivestarrecipe-primary{
-  background-color: #ffd800
+  // background-color: #ffd800
+  background-image: url('https://images.unsplash.com/photo-1543352634-a1c51d9f1fa7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80');
+  background-size: cover;
 }
 .fivestarredrecipetitle {
   font-family: 'Playfair Display', serif;
-  color: #628B48;
+  color: black;
+  font-weight: 1000;
   font-size: 30px;
 }
 
@@ -488,6 +506,7 @@ font-size: large;
 //register page 
 .registerbackground {
   background-image: url('https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/1012305/910/606/m2/fpnw/wm1/tyhlpnowodzm2wpsksuz240scqzybbtjxpulre9zs8qugxsic4zdhwfixlgupu5u-.jpg?1456015760&s=617284c32d2b0069274c392c366b9f4c');
+  background-size: cover; 
 }
 
 .registerboxonright{
@@ -500,5 +519,11 @@ font-size: large;
 
 //login page 
 .loginbackground{
-  background-image: url('https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/1010197/910/606/m2/fpnw/wm1/oe3pvqzwoftophvhjphbjls75jxvs7r3ttpjioe8eklqkkjkmg5q48on2mm3qk7o-.jpg?1455930846&s=3e2e28713df801446a553dff3703ac80')
+  background-image: url('https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/1010197/910/606/m2/fpnw/wm1/oe3pvqzwoftophvhjphbjls75jxvs7r3ttpjioe8eklqkkjkmg5q48on2mm3qk7o-.jpg?1455930846&s=3e2e28713df801446a553dff3703ac80');
+  background-size: cover; 
+}
+
+.spinner{
+  margin-top: 40vh;
+  text-align: center;
 }

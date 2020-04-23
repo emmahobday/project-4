@@ -6,7 +6,6 @@ import SearchBar from './SearchBar'
 const SearchResults = () => {
 
   const [displaySearchResults, setDisplaySearchResults] = useState([])
-  const [pageNumber, setPageNumber] = useState(1)
 
   // track what's being typed in state here, send it through to searchbar 
   // the searchbar component contains a link to a new searchresult page
@@ -29,7 +28,7 @@ const SearchResults = () => {
 
   useEffect(() => {
 
-    fetch(`/api/main/recipes/search/${query}?page=${pageNumber}`)
+    fetch(`/api/main/recipes/search/${query}?`)
       .then(resp => resp.json())
       .then(resp => {
         console.log(resp)
@@ -52,7 +51,6 @@ const SearchResults = () => {
 
   // already declared - rename if we need this?
   // const queryString = query.split('&').join(' ')
-
 
 
   return (<>
@@ -95,13 +93,6 @@ const SearchResults = () => {
           })}
         </div>
       </div >
-      {/* <button onClick={() => setPageNumber(pageNumber - 1)} disabled={!fullData.previous}> previous </button>
-      <button onClick={() => setPageNumber(pageNumber + 1)} disabled={!fullData.next} > next </button>
-      <div>
-        {displayPageNumbers.map(page => {
-          return <button onClick={() => setPageNumber(page)} key={page}> {page} </button>
-        })}
-      </div> */}
     </div >
   </>)
 }

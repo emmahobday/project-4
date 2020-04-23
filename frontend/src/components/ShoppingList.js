@@ -55,7 +55,7 @@ const ShoppingList = () => {
 
   // }
 
-  if (!data.length) return <h1> Add some ingredients to cook up a storm! </h1>
+  if (!data.length) return <div className="emptyshoppinglistbackground"> <h1 className="add"> Add some ingredients to cook up a storm! </h1> </div>
 
   return (<>
     <section className="hero is-medium is-bold is-shoppinglist-primary">
