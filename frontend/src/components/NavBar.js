@@ -31,18 +31,9 @@ class NavBar extends React.Component {
         <div className="container navbar-container">
 
           <div className="navbar-brand">
-
-
-
             <div className="navbar-item navitem">
               <Link className="navbar-edited" to="/recipes">Find a recipe</Link>
             </div>
-
-            {/* should be centered - LOGO */}
-            <div className="navbar-item">
-              <Link className="navbar-edited navbar-home" to="/">recipedia</Link>
-            </div>
-
             {/* burger at the end */}
             <a
               role="button"
@@ -60,6 +51,12 @@ class NavBar extends React.Component {
 
           <div className={`navbar-menu ${this.state.navMobileOpen ? 'is-active' : ''}`}>
             <div className="navbar-start">
+
+
+              {/* should be centered - LOGO */}
+              <div className="navbar-item">
+                <Link className="navbar-edited navbar-home" to="/">recipedia</Link>
+              </div>
             </div>
             <div className="navbar-end">
 

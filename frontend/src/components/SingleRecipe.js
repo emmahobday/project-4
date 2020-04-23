@@ -68,7 +68,6 @@ const SingleRecipe = (props) => {
         <div className="detail-box">
           <div className="detail-item centered-item">
             {auth.getToken() && <Rating recipeId={id} rating={singleRecipeData && singleRecipeData.rating} />}
-            {/* {!isLoggedIn && <p>stars</p>} */}
             {!isLoggedIn && <Link to='/login' className='login-link'><FontAwesomeIcon icon={faStarEmpty} /><FontAwesomeIcon icon={faStarEmpty} /><FontAwesomeIcon icon={faStarEmpty} /><FontAwesomeIcon icon={faStarEmpty} /><FontAwesomeIcon icon={faStarEmpty} /></Link>}
           </div>
           <div className="vl"></div>
@@ -187,8 +186,6 @@ const SingleRecipe = (props) => {
   </section>
   )
 }
-
-// {isloggedIn && user === comment.user.username && <button className="button is-danger is-round comment-delete" onClick={this.props.onClick}>Delete</button>}
 
 export default SingleRecipe
 

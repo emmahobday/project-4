@@ -8,11 +8,9 @@ const AllRecipes = () => {
   const proteins = ['chicken', 'salmon', 'pasta', 'beef', 'prawn', 'lamb', 'cheese', 'tuna', 'tofu', 'salad', 'scallop', 'pork', 'egg', 'potato', 'rice', 'mussels', 'beans', 'cod', 'crab', 'falafel']
   const [recipes, setRecipes] = useState([[{ main_protein: '' }]])
   const [query, setQuery] = useState('')
-  // const [searchResults, setSearchResults] = useState([])
 
   const searchTerms = query.split(' ')
   console.log('search terms', searchTerms)
-  // console.log('search results', searchResults)
 
 
   useEffect(() => {
@@ -42,10 +40,8 @@ const AllRecipes = () => {
         </div>
       </div>
     </section>
-    <section>
-    </section>
 
-    <section>
+    <section className="neutral">
       {/* search all recipes search bar - search ingredients and name */}
       {/* this would need to redirect to a new results page, given layout */}
       {/* that page could show 'you searched for "....." - x results' and a searchbar to search again */}
@@ -54,10 +50,11 @@ const AllRecipes = () => {
       <SearchBar query={query} onChange={() => setQuery(event.target.value)} onSubmit={() => event.preventDefault()} />
     </section>
 
-    <div className="section">
+    <div className="section neutral">
       {recipes.map((protein) => {
-        return <>
-          <h1>{protein[0].main_protein} recipes</h1>
+        // console.log(protein[0].id)
+        return <div key={protein[0].main_protein}>
+          <h1 className='recipe-subheading'>{protein[0].main_protein.toUpperCase()} RECIPES</h1>
           <div className="container scroll">
             <div className="columns is-full-mobile is-centered mobile-padding">
               {protein.map(recipe => {
@@ -75,16 +72,11 @@ const AllRecipes = () => {
                 </Link>
               })
               }
-
             </div>
           </div>
-        </>
+        </div>
       })}
     </div>
-
-
-
-
   </>)
 }
 
