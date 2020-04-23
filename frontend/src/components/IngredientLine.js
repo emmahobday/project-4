@@ -28,20 +28,25 @@ const IngredientLine = (props) => {
     // e is the result of checking the tickbox 
     if (e) {
       deleteIngredientFromShoppingList(ingredient)
+      console.log('clicked and e is true')
       console.log(props.recipeId)
+      setisCompleted(e)
     } else {
       addIngredientToShoppingList(ingredient)
+      setisCompleted(e)
+      console.log('clicked and e is false')
+
     }
     setisCompleted(e)
 
   }
 
   return (
-    <div key={props.ingredient} className={isCompleted ? 'strikethrough' : '', 'ingredientline'}> {props.ingredient}
-      <label className="checkbox">
+    <div key={props.ingredient} className={isCompleted ? 'strikethrough ingredientline' : 'ingredientline'}> {props.ingredient}
+      < label className="checkbox">
         <input type="checkbox" onClick={() => handleCheck(event.target.checked, props.ingredient)} />
       </label>
-    </div>
+    </div >
   )
 }
 
