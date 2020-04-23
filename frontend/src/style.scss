@@ -205,24 +205,29 @@ font-size: large;
 .is-allrecipes-primary {
   background-color: #E8AAC4;
   margin-bottom: 20px;
-  background-image: url('https://img5.goodfon.com/wallpaper/nbig/7/38/cpetsii-chesnok-rozmarin-perets-dereviannyi-fon-chili.jpg');
+  // background-image: url('https://img5.goodfon.com/wallpaper/nbig/7/38/cpetsii-chesnok-rozmarin-perets-dereviannyi-fon-chili.jpg');
   background-size: cover;
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.5), 
+    rgba(0, 0, 0, 0.5)
+  ),url('https://img5.goodfon.com/wallpaper/nbig/7/38/cpetsii-chesnok-rozmarin-perets-dereviannyi-fon-chili.jpg');
 
 }
 .allrecipestitle{
   color: white;
-
   font-family: 'Playfair Display', serif;
   font-size: 35px;
-  font-weight:800;
+  font-weight:1000;
 }
 // shopping list feature 
 
 .shoppinglisttitle {
-  color: #628B48;
+  color: white;
   font-family: 'Playfair Display', serif;
   font-size: 35px;
+  font-weight:1000;
 }
+
 
 .shoppinglistcontainer {
   // display: flex;
@@ -243,13 +248,15 @@ font-size: large;
   width: 100%;
   // border: 1px purple solid;
   justify-content: space-between;
-  padding: 20px;
+  padding: 100px;
   // margin-top: 10px;
 }
 
 .is-shoppinglist-primary {
-  background-color: #E8AAC4;
+  // background-color: #E8AAC4;
   font-weight: 800;
+  background-image: url('http://s1.1zoom.net/big3/815/433469-svetik.jpg');
+  background-size: cover;
 }
 
 .recipetobuyfor {
