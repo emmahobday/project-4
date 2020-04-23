@@ -19,7 +19,8 @@ const FiveStarredRecipes = () => {
       })
   }, [])
 
-  if (!data.length) return <LoadSpinner />
+  if (!data.length) return <div className="emptyshoppinglistbackground"> <h1 className="add"> Discover and rate your favourite recipes five stars! </h1> </div>
+
 
 
   return (<>
