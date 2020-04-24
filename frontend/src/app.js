@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { HashRouter, Switch, Route } from 'react-router-dom'
 
 
 import 'bulma'
@@ -26,7 +26,7 @@ import RecipesbyDietType from './components/RecipesByDietType'
 
 
 const App = () => {
-  return <BrowserRouter>
+  return <HashRouter>
     <NavBar />
     <Switch>
       <Route exact path={'/'} component={Homepage} />
@@ -45,7 +45,7 @@ const App = () => {
       <Route exact path={'/mealplan'} component={MealPlan} />
 
     </Switch>
-  </BrowserRouter>
+  </HashRouter>
 }
 
 

@@ -7,14 +7,11 @@ verify_ssl = true
 pylint = "*"
 
 [packages]
-django = "*"
+django = "==2.2.12"
 djangorestframework = "*"
 psycopg2-binary = "*"
-request = "*"
 requests = "*"
-restframework = "*"
 pyjwt = "*"
-djangorestframework-jwt = "*"
 
 [requires]
 python_version = "3.7"
