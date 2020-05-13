@@ -96,7 +96,7 @@ We started by building our backend models. We planned and created these very car
 <a name="single"></a>
 ## View a recipe
 
-
+![Single recipe](screenshots/single-recipe.jpg)
 
 
 <a name="healthtags"></a>
@@ -107,7 +107,7 @@ We started by building our backend models. We planned and created these very car
 <a name="nutri"></a>
 ## Nutritional information
 
-
+![Nutritional information](screenshots/nutri.jpg)
 
 
 <a name="search"></a>
@@ -119,7 +119,7 @@ We started by building our backend models. We planned and created these very car
 <a name="rotd"></a>
 ## Recipe of the day
 
-
+![Recipe of the day](screenshots/rotd.jpg)
 
 
 <a name="register"></a>
