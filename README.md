@@ -325,7 +325,7 @@ class MainProteinSummaryView(ListCreateAPIView):
 <a name="fridge"></a>
 ## What's in your fridge?
 
-![Homepage](screenshots/homepage.jpg)
+![What's in your fridge?](screenshots/fridge.jpg)
 
 This feature sits prominently on our front page, and is a hook into more advanced recipe searching. Users can input up to three ingredients and they are given a selection of recipes that include these ingredients. 
 
@@ -486,13 +486,12 @@ For general search, OMG writing the code to loop over x many search terms. We tr
 Talk about initially trying to translate JS into Python, but then gradually finding the right way to write it in Python
 
 Advanced search - creating the search string on front end, receiving and breaking it down on the backend, all through URL
-
+![Advanced search](screenshots/advanced.jpg)
 
 
 
 <a name="rotd"></a>
 ## Recipe of the day
-*problem: needs to be a random recipe every day. don't want to tick through recipes in order, as they're grouped by type (e.g. a load of chicken recipes for months). So need a generate a number 1-1000 each day, and maintain it for everyone all day. Best way: use the date as a unique number to start off the generation.
 
 Each day, a new 'Recipe of the day' is generated and displayed on the homepage. 
 
