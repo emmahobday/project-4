@@ -276,9 +276,9 @@ The scrolling div was achieved simply with CSS like so:
 }
 ```
 
-When this page loads, the front-end makes a request to the API. I built this component using React hooks. Because the data is paginated, I decided to make a separate API request for each category, rather than requesting all recipes, because otherwise we wouldn't be guaranteed to receive data for each category - plus, it seemed like a needless quantity of data to send over.
+When this page loads, the front-end makes a request to the API. I built this component using React hooks. Because the data is paginated, I decided to make a separate API request for each category, rather than requesting all recipes, because otherwise we wouldn't be guaranteed to receive data for each category - plus, it seemed like a needless quantity of data to send over. I added an extra item to each array - a 'cross' image with the name 'see more', which was added to the end of each array - this had the id `section/${protein}`, so that rather than navigating to a recipe on click, as the recipe cards do, this would navigate to a page displaying more recipies in this category.
 
-Originally, I achieved the desired effect only by writing out a separate API request for each category. My first attempt at refactoring this was to create an array of main proteins, and loop through this array, making API GET requests. However, this didn't work, because of asynch issues, so I needed to use promises to ensure I didn't throw errors. My solution was:
+Originally, I achieved the desired effect only by writing out a separate API request for each category. My first attempt at refactoring this was to create an array of main proteins, and loop through this array, making API GET requests. However, this didn't work, because of asynch issues, so I needed to use promises to ensure I didn't throw errors. Getting this to work was a little fiddly. My solution was to use`Promise.all()` to set the returned data in state only once all the data had been returned.
 
 ```
   const proteins = ['chicken', 'salmon', 'pasta', 'beef', 'prawn', 'lamb', 'cheese', 'tuna', 'tofu', 'salad', 'scallop', 'pork', 'egg', 'potato', 'rice', 'mussels', 'beans', 'cod', 'crab', 'falafel']
@@ -291,7 +291,6 @@ useEffect(() => {
         fetch(`/api/main/recipes/type/summary/${protein}`)
           .then(resp => resp.json())
           .then(resp => {
-            console.log(resp),
               finalArray.push(resp.results.concat({ 'id': `section/${protein}`, 'image': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Plus_symbol.svg/1200px-Plus_symbol.svg.png', 'dish_name': 'See more' }))
           }))
     })
@@ -302,21 +301,71 @@ useEffect(() => {
   }, [])
 ```
 
-*view all recipies - scroll layout - challenge of 'promise' when refactoring. also they come in a random order.
-*can click into main protein
-* The promises thing in allrecipesbytype - wanted to map over things in return, useEffect and state. Managed it using promises. 
+I had to reconsider how I stored this data in state in light of the format the data was returned in:
+
+`  const [recipes, setRecipes] = useState([[{ main_protein: '' }]])`
+
+I then mapped over the array of recipes in the return. One minor issue I encountered with this is that the order in which the categories are listed on the page changes every time, presumably depending on the order in which the response is received from the API. I couldn't find a way to control this without hard-coding the divs in the return, rather than mapping over them - in the end, for our site, the order isn't actually important because there's no hierarchy in the categories, so this didn't worry me too much.
+
+On the backend, requests to the url used in `useEffect()` above use the `MainProteinSummaryView`. This returns 10 results that have a main protein that matches this request. I wrote this code using Django's filter queries.
+
+```
+class MainProteinSummaryView(ListCreateAPIView):
+    serializer_class = BasicRecipeSerializer
+    pagination_class = AllRecipesPagination
+
+    def get(self, request, query):
+        recipes = self.paginate_queryset(
+            Recipe.objects.filter(main_protein__iexact=query)[:10])
+        serializer = BasicRecipeSerializer(recipes, many=True)
+        return self.get_paginated_response(serializer.data)
+```
 
 
 <a name="fridge"></a>
 ## What's in your fridge?
 
-*hook into site
-backend logic
-frontend display
+This feature sits prominently on our front page, and is a hook into more advanced recipe searching. Users can input up to three ingredients and they are given a selection of recipes that include these ingredients. 
 
-Fridge search - decided to conduct the search on the backend, as running a filter on data using Django is relatively trivial by filtering the query set, and this also means only necessary data is sent over from backend to frontend, particularly when the data is paginated. 
+I decided to conduct the search on the backend, as running a filter on data using Django filter queries seemed fairly straightforward, and this also means that only necessary data is sent over from the frontend to the backend. In addition, because the data is paginated, we'd need to request every page of data and search it to ensure the whole database had been searched.
 
-I included the user’s search terms in the URL, joined by ‘&’, and then wrote a view that separates the search terms out and filters using them as separate terms. The terms are set to an empty string if the user supplies less than three.
+My strategy was to include the search terms in the URL call to the API, joined by '&', and I then wrote a view that separates out the search terms, and filters using them as separate terms. The terms are set to an empty string if the user supplies less than three.
+
+```
+class FridgeRecipeView(ListCreateAPIView):
+    serializer_class = BasicRecipeSerializer
+    pagination_class = AllRecipesPagination
+
+    def get(self, request, query):
+        if query.count('&') == 2:
+            query1 = query.split('&')[0]
+            query2 = query.split('&')[1]
+            query3 = query.split('&')[2]
+        elif query.count('&') == 1:
+            query1 = query.split('&')[0]
+            query2 = query.split('&')[1]
+            query3 = ''
+        else:
+            query1 = query
+            query2 = ''
+            query3 = ''
+
+        recipes = self.paginate_queryset(Recipe.objects.filter(
+            ingredients_lines__icontains=query1
+        ).filter(
+            ingredients_lines__icontains=query2
+        ).filter(
+            ingredients_lines__icontains=query3
+        ))
+        serializer = BasicRecipeSerializer(recipes, many=True)
+        return self.get_paginated_response(serializer.data)
+```
+This was my first experience of writing this kind of logic in Python, and of using Django queryset filter methods. This solution avoided any errors if there are less than three search terms, but isn't very elegant - once I've had more practice with Python and Django, I have no doubt that I can find a more efficient solution!
+
+The search results are displayed on the frontend on a search results page, using the `SearchResults` component. The data is simply mapped over on Bulma cards. The search results page also contains a `SearchBar` component at the top of the page, enabling the user to make further searches if necessary. Text at the top of the page also displays what the user searched for, and the total number of results:
+
+INSERT PIC HERE
+
 
 
 <a name="single"></a>
