@@ -72,7 +72,7 @@ We started by building our backend models. We planned and created these very car
 
 <a name="database"></a>
 ## Creating our database
-We decided to get our recipe data from a public API, Edamam. This saved us the job of sourcing a substantial amount of recipies independently, and we were still able to have some control over how the data was organised in our PostgreSQL database. After examining the API documentation, we decided which fields we wanted to store. We wanted to add an additional field called 'main protein', which we would use to categorise recipes - we did this by using the search term used in the API request. So, we sent a GET request with the search term 'chicken' for 50 recipies, and stored these in our database with the field 'mainProtein' as 'chicken'.
+We decided to get our recipe data from a public API, Edamam. This saved us the job of sourcing a substantial amount of recipies independently, and we were still able to have some control over how the data was organised in our PostgreSQL database. After examining the API documentation, we decided which fields we wanted to store. We wanted to add an additional field called 'main protein', which we would use to categorise recipes - we did this by using the search term used in the API request. So, we sent a GET request with the search term 'chicken' for 50 recipies, and stored these in our database with the field 'mainProtein' as 'chicken'. Note: 'main protein' ended up being a bit of a misnomer, because we included other food groups like potato, rice, etc.
 
 We automated the population of our database using Python. We created a python file for each mainProtein source we wanted in a 'management' folder, which contained the following code:
 
@@ -262,6 +262,45 @@ class RecipeDetailView(RetrieveUpdateDestroyAPIView):
 
 <a name="browse"></a>
 ## Browse recipies
+
+Our main page to browse recipes is accessed through 'find a recipe' on the navbar. This page contains a div for each main protein in our database, and a selection of recipies for each category are displayed using Bulma cards. These divs can be scrolled sideways for browsing, with a link to 'see more' if a user wants to view a greater range of recipes in this category.
+
+INSERT GIF HERE
+
+The scrolling div was achieved simply with CSS like so:
+
+```
+.scroll {
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+```
+
+When this page loads, the front-end makes a request to the API. I built this component using React hooks. Because the data is paginated, I decided to make a separate API request for each category, rather than requesting all recipes, because otherwise we wouldn't be guaranteed to receive data for each category - plus, it seemed like a needless quantity of data to send over.
+
+Originally, I achieved the desired effect only by writing out a separate API request for each category. My first attempt at refactoring this was to create an array of main proteins, and loop through this array, making API GET requests. However, this didn't work, because of asynch issues, so I needed to use promises to ensure I didn't throw errors. My solution was:
+
+```
+  const proteins = ['chicken', 'salmon', 'pasta', 'beef', 'prawn', 'lamb', 'cheese', 'tuna', 'tofu', 'salad', 'scallop', 'pork', 'egg', 'potato', 'rice', 'mussels', 'beans', 'cod', 'crab', 'falafel']
+
+useEffect(() => {
+    const promises = []
+    const finalArray = []
+    proteins.forEach(protein => {
+      promises.push(
+        fetch(`/api/main/recipes/type/summary/${protein}`)
+          .then(resp => resp.json())
+          .then(resp => {
+            console.log(resp),
+              finalArray.push(resp.results.concat({ 'id': `section/${protein}`, 'image': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Plus_symbol.svg/1200px-Plus_symbol.svg.png', 'dish_name': 'See more' }))
+          }))
+    })
+    Promise.all(promises)
+      .then(() => {
+        setRecipes(finalArray)
+      })
+  }, [])
+```
 
 *view all recipies - scroll layout - challenge of 'promise' when refactoring. also they come in a random order.
 *can click into main protein
