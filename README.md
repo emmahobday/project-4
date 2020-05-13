@@ -33,7 +33,6 @@ This is my fourth and final project with General Assembly's Software Engineering
 	  * [Rate recipes](#rate)	
 	  * [Menu planner](#menu)
 	  * [Shopping list](#shopping)
-		* [Register](#register)
 *  [Challenges](#challenges)
 *  [Lessons learned](#learning)
 *  [Future development ideas](#future)
@@ -70,10 +69,6 @@ This is my fourth and final project with General Assembly's Software Engineering
 ## Approach
 
 We started by building our backend models. We planned and created these very carefully, ensuring that they'd work for all our planned functionality. We then created our MVP - a database of recipies, accessed with advanced search and filter functions. We then worked on our stretch goals - the meal planner, the shopping list and the recipe ratings. Towards the end of the project, we focused on styling.
-
-
-
-
 
 <a name="database"></a>
 ## Creating our database
@@ -135,10 +130,133 @@ class Command(BaseCommand):
  <a name="models"></a>
 ## Backend Models
 
-*Making the user model - issue with adding ManyToMany field to a custom user - something with Django’s user model package. Our solution: 
+We needed several models: User, recipe, healthlabel, rating, shopping_list, recipe_to_buy_for, meal_plan_recipe. We started by making these. We had sketched a wireframe of how our models would interact. Our central models are User and recipe.
 
-- remove ManyToMany fields from the User model
-- For health_labels, we created a HealthLabel model that contains a ManyToManyField, called ‘user’, with the related name ‘health_labels’. We created a HealthLabelSerializer with one field: name.  The UserSerializer is more for login and register, so we created a PopulateUserSerializer which has all desired fields, including ‘health_labels’ and ‘comments’. We created a UserView in Views which returns users using the PopulateUserSerializer.
+**Users**
+Initially, we planned to hold more information on the User model, such as 'healthLabels' and 'fiveStarRecipes'. This seemed to make the most sense to us conceptually, since we'd want to retrieve this information for a user frequently. Django provides an inbuilt User authentication system, which we modified with a customer User model. However, we ran into issues with adding manyToMany fields on a custom user - we think this is something to do with Django's user model package that we weren't able to override. Therefore, we had to restructure our data a little, removing these fields from the User model and putting them within the related models - for example, our health_labels model contains a ManyToManyField, called ‘user’, with the related name ‘health_labels’. Therefore, our custom User model ended up being very straightforward, with only the field 'image', a character field to allow users to link a profile picture with a URL:
+
+```
+from django.contrib.auth.models import AbstractUser
+
+class User(AbstractUser):
+    image = models.CharField(max_length=500, blank=True, null=True)
+```
+
+We created a User serializer, which is used for login and register. I'll talk about how we did this in the Register section. We also created a PopulateUserSerializer which has all the desired fields, including health_labels, and created a UserView in our `views.py` which returns users using the PopulateUserSerializer.
+
+```
+class PopulateUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'image', 'health_labels', 'comments',)
+```
+
+```
+class UserView(APIView):
+  def get(self, request):
+    users = User.objects.all()
+    serialized_users = PopulateUserSerializer(users, many=True)
+    return Response(serialized_users.data)
+```
+
+**Recipies**
+
+Our recipe model specifies all the fields required in the database for each recipe. The ArrayField took a bit of debugging to get it working correctly, but we're glad we persevered, because using arrays for health_labels etc is ideal for managing the data in the way we wanted.
+
+```
+from django.contrib.postgres.fields import ArrayField
+
+class Recipe(models.Model):
+  dish_name = models.CharField(max_length=500, null=True)
+  main_protein = models.CharField(max_length=100, null=True)
+  image = models.CharField(max_length=5000, null=True)
+  source = models.CharField(max_length=500, null=True)
+  instructions_url = models.CharField(max_length=500, null=True)
+  servings = models.IntegerField(null=True)
+  diet_Labels = ArrayField(models.CharField(max_length=50, blank=True, null=True))
+  health_Labels = ArrayField(models.CharField(max_length=50, blank=True, null=True))
+  ingredients_lines = ArrayField(models.CharField(max_length=50, blank=True, null=True))
+  ingredients = ArrayField(models.CharField(max_length=50, blank=True, null=True))
+  calories = models.FloatField(null=True)
+  fat = models.FloatField(null=True)
+  fat_unit = models.CharField(max_length= 100, null=True)
+  sat_fat = models.FloatField(null=True)
+  sat_fat_unit = models.CharField(max_length= 100, null=True)
+  trans_fat = models.FloatField(null=True)
+  trans_fat_unit = models.CharField(max_length= 100, null=True)
+  carbs = models.FloatField(null=True)
+  carbs_unit = models.CharField(max_length= 100, null=True)
+  sugars = models.FloatField(null=True)
+  sugars_unit = models.CharField(max_length= 100, null=True)
+  protein = models.FloatField(null=True)
+  protein_unit = models.CharField(max_length= 100, null=True)
+  cholesterol = models.FloatField(null=True)
+  cholesterol_unit= models.CharField(max_length= 100, null=True)
+  sodium = models.FloatField(null=True)
+  sodium_unit = models.CharField(max_length= 100, null=True)
+  calcium = models.FloatField(null=True)
+  calcium_unit = models.CharField(max_length= 100, null=True)
+
+  def __str__(self):
+      return self.dish_name
+```
+
+We needed two serializers for recipies: basic and detailed. The basic recipe serializer is used whenever we are returning list views - a list of recipes that match a given criteria. The detailed serializer contains all fields, and is used when we need to return a single recipe. The detailed serializer is more complex because we also include the rating the user has given the recipe, if indeed they have:
+
+```
+class BasicRecipeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Recipe
+        fields = ('id', 'dish_name', 'main_protein', 'image', 'source', 'instructions_url',
+                  'servings', 'ingredients_lines', 'diet_Labels', 'health_Labels')
+
+
+class DetailedRecipeSerializer(serializers.ModelSerializer):
+    rating = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Recipe
+        fields = ('id', 'dish_name', 'main_protein', 'image', 'source', 'instructions_url', 'servings', 'diet_Labels',
+                  'health_Labels', 'ingredients_lines', 'ingredients', 'calories', 'fat', 'fat_unit', 'sat_fat', 'sat_fat_unit',
+                  'trans_fat', 'trans_fat_unit', 'carbs', 'carbs_unit', 'sugars', 'sugars_unit', 'protein', 'protein_unit',
+                  'cholesterol', 'cholesterol_unit', 'sodium', 'sodium_unit', 'calcium', 'calcium_unit', 'rating')
+
+    def get_rating(self, obj):
+        user = self.context["request"].user
+        print(user.is_authenticated)
+        if user.is_authenticated:  # check if user is logged in
+            user_rating = obj.ratings.filter(user=user).first()
+            print(user_rating)
+            if user_rating:  # if user logged in but never rated, rating field will be null
+                return user_rating.rating_num
+        return None  # if user isn't logged in rating field will be null
+```
+
+Our `views.py` for recipies include many different views for the different search methods we created.We used pagination to provide 40 search results per search - necessary since our database contains over 1000 recipes. The basic recipe list view and detail view are simply:
+
+```
+class AllRecipesPagination(PageNumberPagination):
+    page_size = 40
+    page_size_query_param = 'page_size'
+    max_page_size = 40
+
+
+class AllRecipesListView(ListCreateAPIView):
+    queryset = Recipe.objects.all()
+    serializer_class = BasicRecipeSerializer
+    pagination_class = AllRecipesPagination
+
+    def get(self, request):
+        recipes = self.paginate_queryset(Recipe.objects.all())
+        serializer = BasicRecipeSerializer(recipes, many=True)
+        return self.get_paginated_response(serializer.data)
+
+
+class RecipeDetailView(RetrieveUpdateDestroyAPIView):
+    queryset = Recipe.objects.all()
+    serializer_class = DetailedRecipeSerializer
+```
+
 
 
 
