@@ -637,7 +637,75 @@ Once the recipe ID has been selected, it simply renders in the middle section of
 <a name="register"></a>
 ## Register/login
 
+Our Register and Login features are relatively straightforward, utilising JWT and Django's inbuilt authentication system.
 
+Our UserSerializer checks the password and password_confirmation match; it then validates the password, and creates it if it passes.
+
+```
+class UserSerializer(serializers.ModelSerializer):
+
+    password = serializers.CharField(write_only=True)
+    password_confirmation = serializers.CharField(write_only=True)
+
+    def validate(self, data):
+
+        password = data.pop('password')
+        password_confirmation = data.pop('password_confirmation')
+
+        if password != password_confirmation:
+            raise serializers.ValidationError(
+                {'password_confirmation': 'Passwords do not match'})
+
+        try:
+            validations.validate_password(password=password)
+        except ValidationError as err:
+            raise serializers.ValidationError({'password': err.messages})
+
+        data['password'] = make_password(password)
+        return data
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email', 'password',
+                  'password_confirmation', 'image')
+```
+
+We wrote a Register and Login View. When a user registers, their shopping list is created - I'll explain this further in the [shopping list](#shopping) section.
+
+```
+class RegisterView(APIView):
+
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            Shopping_list.objects.create(user=user)
+            return Response({'message': 'Registration successful'})
+        return Response(serializer.errors, status=422)
+```
+
+```
+class LoginView(APIView):
+
+    def get_user(self, email):
+        try:
+            return User.objects.get(email=email)
+        except User.DoesNotExist:
+            raise PermissionDenied({'message': 'Invalid credentials'})
+
+    def post(self, request):
+
+        email = request.data.get('email')
+        password = request.data.get('password')
+
+        user = self.get_user(email)
+        if not user.check_password(password):
+            raise PermissionDenied({'message': 'Invalid credentials'})
+
+        token = jwt.encode({'sub': user.id}, settings.SECRET_KEY, algorithm='HS256')
+        return Response({'token': token, 'message': f'Welcome back {user.username}!'})
+
+```
 
 
 <a name="additional"></a>
