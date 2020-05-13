@@ -665,6 +665,7 @@ Once the recipe ID has been selected, it simply renders in the middle section of
 <a name="challenges"></a>
 ## Challenges
 
+Working with Django and Python was fairly new, so writing backend search queries took longer than I had anticipated. Particular challenges are detailed in the sections above! However, I felt really pleased with what we were able to achieve and it was a great learning opportunity. 
 
 
 <a name="learning"></a>
@@ -672,18 +673,22 @@ Once the recipe ID has been selected, it simply renders in the middle section of
 
 This process was a really good opportunity to develop my Python skills. We'd only had a brief introduction to Python before starting this project, as opposed to JavaScript, which we've spent lots of time building our skills with. I was able to apply my JS knowledge to pick up the Python required relatively quickly, but in terms of general approach to problem solving, I found myself initially trying to just translate JS into Python, because I immediately thought of how I'd solve it in JS. The longer I spent fiddling with the Python code, the better able I was to devise solutions that utilised Python more efficiently.
 
-Using new things - hooks, backend search, libraries - minimal pie chart, intro to SVG
+At the start of this project, I'd only used React hooks a little before, writing backend search queries was totally new, as was using SVG, but I felt really confident working out how to use these things - with a little help from the documentation.
 
-Focus on creating a really well designed feature rather than loads of shite ones. So a really robust search function, ux that flows, considering user routes, clear error handling
+Another aspect I reflected on was the importance of creating a few really well designed features, rather than many imperfect ones. I spent quite a lot of time refactoring code, bug-squashing and polishing. There were a few ideas that we didn't have time to implement, such as the option for users to upload their own recipies to a 'community recipe' section, but I'm glad that I focused on quality over quantity!
 
-Bulma navbar - the struggles of making a component look a certain way (centred logo) when it’s not designed for that.
+I also continued to learn about how to best utilise frameworks like Bulma. While they provide easy formatting that can help your front-end look polished relatively quickly, it can be a struggle to get components to look a certain way when they aren't designed for it. For example, my vision was for a centered logo on the navbar, bute a Bulma navbar is divided into sections on the left and right.
 
 
 <a name="future"></a>
 ## Future development ideas
 
-Remove duplicate entries maybe using set()
-User profile
-Set vegetarian etc, and return ONLY search results that fit that, although that would rule out certain sections of ‘all recipes’. Is that what people want?
-CSS - set up default colours, make generic classes e.g. main-title etc so you can apply these all over the site, rather than making specifics for each component
-submitting the advanced search - a last minute change means that typing and pressing enter no longer submits the searchbar text, but opens up the 'advanced' bit.
+* Our database contains some duplicate entries, because certain recipes were returned in more than one of the Edamam API requests we used to populate the database. My initial thought it to use `set()` to remove these.
+
+* Logged-in users could submit recipes to a 'community recipe' section. I'd prefer to keep this separate from the main recipe database since the quality of data could be variable.
+
+* Users could set health_label and diet_label filters on their profile so that all their search results are filtered this way. This could be useful for users - e.g. if you're vegan, or allergic to peanuts, you wouldn't have to apply these filters every time - but could be quite limiting.
+
+* After working perfectly for several days, a last minute bit of refactoring has left the search bar with a bug: if you type in the search bar and then hit 'enter', this opens up the advanced search dropdown rather than submitting the form.
+
+* A regular automated email to users with a suggested recipe could be nice.
