@@ -474,8 +474,6 @@ The DonutChart presented a few challenges - I hadn't used SVG before, and it too
 
 Users can search for recipes on the main recipe page. There is a search bar, which takes text input, and an advanced search button which offers more detailed search criteria which the user can tick.
 
-![Advanced search](screenshots/advanced.jpg)
-
 Initially I wrote code to search by searchbar text only. Inspired by other APIs I'd used, I decided to send the search terms through to the API by including them in the URL. So, on the front-end, when the user types into the bar it is set in state:
 
 'onChange={() => setQuery(event.target.value)}'
@@ -520,7 +518,12 @@ This component then makes the API call based on this query:
   }, [query])
 ```
 
-and the results are displayed, as in other components. 
+and the results are displayed, as in other components. The frontend displays the user's search query and the number of results:
+
+```
+ {query && <h1>You searched for "{queryString}" - {displaySearchResults.length} results</h1>}
+
+```
 
 On the backend, this URL pattern in the GET request uses the view `AllRecipeSearchList`. This view takes the query from the URL, creates an array of terms by splitting the string at each '&', then for each term in this array, creates the Django search term required (e.g.Q(ingredients_lines__icontains=term) | Q(dish_name__icontains=term)), and adds these terms to the array `queryterms`. The database is then filtered by all of these search terms.
 
@@ -549,9 +552,53 @@ The most challenging part of this was working out how to filter the database by 
 
 <a name="advanced"></a>
 ## Advanced search
-Advanced search - creating the search string on front end, receiving and breaking it down on the backend, all through URL
 
+Users can conduct more advanced search by including health_labels and diet_labels as filters, in addition to search terms.
 
+![Advanced search](screenshots/advanced.jpg)
+
+The initial challenge was deciding how to send this information through to the backend. If I simply added them to the search terms with another '&', and added the diet_label and health_label fields to the list of those to be filtered by in the backend, the data might not be always right - for example, a user might request recipies with the label 'low-fat', and they would be returned any recipe that had 'low-fat' in the ingredients list (e.g. low fat yoghurt), even if the recipe doesn't have that tag. I needed a way to separate out the diet_labels and the health_labels from the search terms.
+
+My solution was to use a `$` to separate the three aspects of a search query: search terms, health_labels and diet_labels. Within these aspects, the `&` could still be used to chain multiple terms or labels together. For example, a request for recipes that contain chicken and garlic, are high protein, peanut-free and sugar-conscious would generate this search term `chicken&garlic$High-Protein$Peanut-Free&Sugar-Conscious` using this code:
+
+```
+const searchTerms = `${query.split(' ').join('&')}$${dietLabels.join('&')}$${healthLabels.join('&')}`
+```
+
+This search term is used in the URL as with the previous search. In our backend views, I wrote the following view to decode the search terms and run the correct search:
+
+```
+class AdvancedSearchList(ListCreateAPIView):
+    serializer_class = BasicRecipeSerializer
+    pagination_class = AllRecipesPagination
+
+    def get(self, request, query):
+
+        print(query)
+        categoryArray = query.split('$')
+
+        wordsArray = categoryArray[0].split('&')
+        dietLabelsArray = categoryArray[1].split('&')
+        healthLabelsArray = categoryArray[2].split('&')
+
+        queryTerms = []
+
+        for term in wordsArray:
+            queryTerms.append(Q(ingredients_lines__icontains=term) | Q(dish_name__icontains=term))
+
+        for term in dietLabelsArray:
+            queryTerms.append(Q(diet_Labels__icontains=term))
+
+        for term in healthLabelsArray:
+            queryTerms.append(Q(health_Labels__icontains=term))
+
+        recipes = self.paginate_queryset(Recipe.objects.filter(*queryTerms))
+
+        serializer = BasicRecipeSerializer(recipes, many=True)
+        return self.get_paginated_response(serializer.data)
+```
+
+This splits the query initially at the `$` to create an array/List with three elements. The first element (categoryArray[0]) will be the search terms - these are split at the `&` and assigned to the variable `wordsArray`. The same is done for the `dietLabelsArray` and `healthLabelsArray`. I then used three separate loops to ensure the correct fields are searched for each array. The logic is otherwise the same as for the previous search.
 
 
 <a name="rotd"></a>
@@ -639,3 +686,4 @@ Remove duplicate entries maybe using set()
 User profile
 Set vegetarian etc, and return ONLY search results that fit that, although that would rule out certain sections of ‘all recipes’. Is that what people want?
 CSS - set up default colours, make generic classes e.g. main-title etc so you can apply these all over the site, rather than making specifics for each component
+submitting the advanced search - a last minute change means that typing and pressing enter no longer submits the searchbar text, but opens up the 'advanced' bit.
