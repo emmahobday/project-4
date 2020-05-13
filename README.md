@@ -7,7 +7,7 @@ by [Emma Hobday](https://emmahobday.github.io/) and [Denise Cheung](https://deni
 
 Fridge half-full and need inspiration? Recipedia lets users input ingredients they've got and suggests recipes for them. You can browse, search and filter recipes using a range of advanced search features and, if you find something you like, add it to your personal meal planner. If you're missing any ingredients, add them to your personal shopping list and check them off once you've got them. Rate recipies out of five, and you'll receive personalised recipe suggestions based on your tastes.
 
-Check it out here.
+Check it out [here](http://recipedia84.herokuapp.com/).
 
 ![Homepage](screenshots/homepage.jpg)
 
@@ -232,7 +232,7 @@ class DetailedRecipeSerializer(serializers.ModelSerializer):
         return None  # if user isn't logged in rating field will be null
 ```
 
-Our `views.py` for recipies include many different views for the different search methods we created.We used pagination to provide 40 search results per search - necessary since our database contains over 1000 recipes. The basic recipe list view and detail view are simply:
+Our `views.py` for recipies include many different views for the different search methods we created. We used pagination to provide 40 search results per search - necessary since our database contains over 1000 recipes. The basic recipe list view and detail view are simply:
 
 ```
 class AllRecipesPagination(PageNumberPagination):
@@ -325,6 +325,8 @@ class MainProteinSummaryView(ListCreateAPIView):
 <a name="fridge"></a>
 ## What's in your fridge?
 
+![Homepage](screenshots/homepage.jpg)
+
 This feature sits prominently on our front page, and is a hook into more advanced recipe searching. Users can input up to three ingredients and they are given a selection of recipes that include these ingredients. 
 
 I decided to conduct the search on the backend, as running a filter on data using Django filter queries seemed fairly straightforward, and this also means that only necessary data is sent over from the frontend to the backend. In addition, because the data is paginated, we'd need to request every page of data and search it to ensure the whole database had been searched.
@@ -397,6 +399,7 @@ class RecipeDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = DetailedRecipeSerializer
 ```
 
+The single recipe page has a number of interesting features, depending on whether a user is logged in or not. Read more about these in [health tags](#healthtags), [nutritional information](#nutri), [rating](#rating), [menu planner](#menu) and [shopping list](#shopping).
 
 
 <a name="healthtags"></a>
@@ -433,6 +436,37 @@ In addition, these health tags can optionally be selected as criteria in advance
 
 ![Nutritional information](screenshots/nutri.jpg)
 
+I displayed the nutritional information of each recipe using a Bulma table to make it easy to read, with each data point rounded to a sensible degree. I used a library called `DonutChart` to create a small donut chart to display the proportion of energy from fat, protein and carbohydrates - this was inspired partly by the way data is displayed in MyFitnessPal.
+
+```
+<DonutChart
+              data={[
+                { title: 'Protein', value: singleRecipeData.protein, color: '#8B008B' },
+                { title: 'Carbs', value: singleRecipeData.carbs, color: '#008081' },
+                { title: 'Fat', value: singleRecipeData.fat, color: '#DC143C' }
+              ]}
+              cx={60}
+              cy={40}
+              label={false}
+              lengthAngle={360}
+              lineWidth={40}
+              paddingAngle={0}
+              radius={40}
+              rounded={false}
+              startAngle={0}
+              animate={true}
+              animationDuration={3000}
+              style={{
+                height: '80px'
+              }}
+              viewBoxSize={[
+                1,
+                1
+              ]}
+            />
+```
+
+The DonutChart presented a few challenges - I hadn't used SVG before, and it took quite a bit of tinkering to get the size and position of the chart to look as I'd like. When I initially changed the size of the chart, I ended up with a huge left-size margin, and had to fiddle with cx, cy, viewBoxSize and radius to get the right result. I also added a subtle animation when the chart loads - although I rather think this is lost, since the chart renders fairly low down the page, so most users will need to scroll to see it, by which time the animation is over! 
 
 <a name="search"></a>
 ## Search and filter recipies
@@ -460,7 +494,34 @@ Advanced search - creating the search string on front end, receiving and breakin
 ## Recipe of the day
 *problem: needs to be a random recipe every day. don't want to tick through recipes in order, as they're grouped by type (e.g. a load of chicken recipes for months). So need a generate a number 1-1000 each day, and maintain it for everyone all day. Best way: use the date as a unique number to start off the generation.
 
+Each day, a new 'Recipe of the day' is generated and displayed on the homepage. 
+
 ![Recipe of the day](screenshots/rotd.jpg)
+
+This presented an interesting problem: we wanted to generate a new recipe each day, but it should remain in place for the whole day, and be the same for all users. Previously, we've used Math.random() to generate a random ID, but simply generating a random recipe every time the component loads wouldn't fit the bill.
+
+My solution was to use the date as a starting point for selecting the ID for the recipe, because this would mean it'd automatically change every day. 
+
+First, I created a variable `date` which is a number - the sum total of today's year, month, and date.
+
+```
+const today = new Date()
+const date = today.getFullYear() + (today.getMonth() + 1) + today.getDate()
+```
+
+I then wrote a function than turns this number into a number between 1 and 1000 (which makes it a suitable recipe ID). I wanted this to return a very different number each day, since the recipe IDs are ordered consecutively by main protein - it wouldn't be very exciting to have several months of chicken recipes, for example. I did a little bit of data modelling to test my solution out, and this seems to do the job, although I'd like to look at this really carefully in the future and hopefully find an even better way:
+
+```
+  function todaysRecipe() {
+    dailyRecipe = date
+    while (dailyRecipe > 1000) {
+      dailyRecipe = Math.ceil(dailyRecipe / ((dailyRecipe % 15) + 1))
+    }
+    return dailyRecipe
+  }
+```
+
+Once the recipe ID has been selected, it simply renders in the middle section of our homepage, along with the title, and today's date.
 
 
 <a name="register"></a>
