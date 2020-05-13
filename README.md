@@ -371,13 +371,62 @@ INSERT PIC HERE
 <a name="single"></a>
 ## View a recipe
 
+When a user selects a recipe, they are taken to a page which displays the full information about this recipe.
+
 ![Single recipe](screenshots/single-recipe.jpg)
+
+The front-end makes a request to our API for the detailed recipe data, using the recipe id taken from props: 
+
+```
+const id = props.match.params.id
+
+axios.get(`/api/main/recipe/${id}`)
+        .then(resp => {
+          console.log(resp)
+          setSingleRecipeData(resp.data)
+        })
+```
+
+The backend then requests the RecipeDetailView of this recipe:
+
+`path('recipe/<int:pk>/', RecipeDetailView.as_view())`
+
+```
+class RecipeDetailView(RetrieveUpdateDestroyAPIView):
+    queryset = Recipe.objects.all()
+    serializer_class = DetailedRecipeSerializer
+```
+
 
 
 <a name="healthtags"></a>
 ## Health tags
+INSERT PIC HERE OF THE TAGS
 
+The single recipe page displays the related `diet_labels` and `health_labels` as 'tags' underneath the recipe title. We decided to group these together, since the difference isn't important to the user. These serve as a summary of key health information to the user, and can also be clicked on to navigate to a page displaying all recipes of this type. 
 
+INSERT PIC OF HEALTH TAG RESULTS
+
+This required an extra, albeit simple, path and view in the backend:
+
+```
+    path('recipes/dietlabel/<str:query>', DietLabelRecipeView.as_view()),
+
+```
+
+```
+class DietLabelRecipeView(ListCreateAPIView):
+    serializer_class = BasicRecipeSerializer
+    pagination_class = AllRecipesPagination
+
+    def get(self, request, query):
+        recipes = self.paginate_queryset(
+            Recipe.objects.filter(Q(diet_Labels__icontains=query) | Q(health_Labels__icontains=query)))
+        serializer = BasicRecipeSerializer(recipes, many=True)
+        return self.get_paginated_response(serializer.data)
+```
+
+In addition, these health tags can optionally be selected as criteria in advanced searches. 
 
 <a name="nutri"></a>
 ## Nutritional information
