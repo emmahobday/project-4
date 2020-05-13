@@ -9,7 +9,7 @@ Fridge half-full and need inspiration? Recipedia lets users input ingredients th
 
 Check it out here.
 
-![Homepage](images/screenshots/homepage.png)
+![Homepage](screenshots/homepage.jpg)
 
 This is my fourth and final project with General Assembly's Software Engineering Immersive course. This was a paired project, completed in one week. All the project planning was collaborative - we came up with a really detailed plan that we both felt very excited about. We pair-programmed the first day, setting up project from scratch and designing the backend models together. From there, we started each day with a paired stand-up, during which we decided what features we'd each work on individually that day. We pair-programmed some features, and collaborated throughout each day with problem solving and helping to debug our code. 
 
