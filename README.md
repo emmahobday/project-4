@@ -34,9 +34,9 @@ This is my fourth and final project with General Assembly's Software Engineering
 	  * [Menu planner](#menu)
 	  * [Shopping list](#shopping)
 		* [Register](#register)
-	*  [Challenges](#challenges)
-	*  [Lessons learned](#learning)
-	*  [Future development ideas](#future)
+*  [Challenges](#challenges)
+*  [Lessons learned](#learning)
+*  [Future development ideas](#future)
 
 <a name="brief"></a>
 ## Brief
