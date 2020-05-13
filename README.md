@@ -27,6 +27,7 @@ This is my fourth and final project with General Assembly's Software Engineering
       * [Health tags](#healthtags)
       * [Nutritional information](#nutri)
     * [Search and filter recipies](#search)
+      * [Advanced search](#advanced)
     * [Recipe of the Day](#rotd)
 	* [Register/login](#register) 
 	* [Additional features for logged-in users](#additional)	
@@ -471,22 +472,85 @@ The DonutChart presented a few challenges - I hadn't used SVG before, and it too
 <a name="search"></a>
 ## Search and filter recipies
 
-Search functionality
+Users can search for recipes on the main recipe page. There is a search bar, which takes text input, and an advanced search button which offers more detailed search criteria which the user can tick.
 
-Made backend routes that will return things
-
-Pulled in from URL - best way!
-
-Fridge takes up to 3 items
-
-For general search, OMG writing the code to loop over x many search terms. We tried using set() and a load of other stuff. Now uses a loop in the right place.
-
-
-
-Talk about initially trying to translate JS into Python, but then gradually finding the right way to write it in Python
-
-Advanced search - creating the search string on front end, receiving and breaking it down on the backend, all through URL
 ![Advanced search](screenshots/advanced.jpg)
+
+Initially I wrote code to search by searchbar text only. Inspired by other APIs I'd used, I decided to send the search terms through to the API by including them in the URL. So, on the front-end, when the user types into the bar it is set in state:
+
+'onChange={() => setQuery(event.target.value)}'
+
+These search terms are then appended to the end of the URL in the api request. I removed the space between words and replaced them with '&' so the backend could recognise where each search term begins and ends. 
+
+```
+const searchTerms = `${query.split(' ').join('&')}$${dietLabels.join('&')}$${healthLabels.join('&')}`
+```
+
+On submit, the user navigates to a page which contains the `searchterms` in the URL (e.g. http://recipedia84.herokuapp.com/#/recipes/search/avocado&halloumi)
+
+```
+		<Link
+                to={{
+                  pathname: `/recipes/search/${searchTerms}`,
+                  state: {
+                    query: query,
+                    searchTerms: searchTerms
+                  }
+                }}
+                
+              ><span className='search-icon' onClick={() => setHidden(true)}><FontAwesomeIcon icon={faSearch} /></span> </Link>
+```
+
+Our router recognises that any URL that follows the pattern `/recipes/search/` should load the SearchResults component:
+
+`<Route exact path={'/recipes/search/:query'} component={SearchResults} />`
+
+This component then makes the API call based on this query:
+
+```
+ const { query } = useParams()
+ 
+ useEffect(() => {
+    fetch(`/api/main/recipes/search/${query}?`)
+      .then(resp => resp.json())
+      .then(resp => {
+        setDisplaySearchResults(resp.results)
+      })
+    return () => console.log('Unmounting component')
+  }, [query])
+```
+
+and the results are displayed, as in other components. 
+
+On the backend, this URL pattern in the GET request uses the view `AllRecipeSearchList`. This view takes the query from the URL, creates an array of terms by splitting the string at each '&', then for each term in this array, creates the Django search term required (e.g.Q(ingredients_lines__icontains=term) | Q(dish_name__icontains=term)), and adds these terms to the array `queryterms`. The database is then filtered by all of these search terms.
+
+Unlike the 'What's in your fridge?' search, which was limited to three search terms, this takes as many search terms as the user inputs.
+
+```
+class AllRecipeSearchList(ListCreateAPIView):
+  serializer_class = BasicRecipeSerializer
+  pagination_class = AllRecipesPagination 
+
+  def get(self, request, query): 
+    termsArray = query.split('&')
+    queryTerms = []
+
+    for term in termsArray:
+        queryTerms.append(Q(ingredients_lines__icontains=term) | Q(dish_name__icontains=term))
+
+    recipes = self.paginate_queryset(Recipe.objects.filter(*queryTerms))
+
+    serializer = BasicRecipeSerializer(recipes, many=True)
+    return self.get_paginated_response(serializer.data)
+```
+The field lookup query `icontains` means a case-insensitive search, and in Django, more complex queries using OR statements require you to use Q objects.
+
+The most challenging part of this was working out how to filter the database by all the parameters in `queryTerms`. The solution - `(Recipe.objects.filter(*queryTerms))` is really straightforward, using `*` to pass in a variable number of terms. 
+
+<a name="advanced"></a>
+## Advanced search
+Advanced search - creating the search string on front end, receiving and breaking it down on the backend, all through URL
+
 
 
 
@@ -558,6 +622,8 @@ Once the recipe ID has been selected, it simply renders in the middle section of
 
 <a name="learning"></a>
 ## Lessons learned
+
+This process was a really good opportunity to develop my Python skills. We'd only had a brief introduction to Python before starting this project, as opposed to JavaScript, which we've spent lots of time building our skills with. I was able to apply my JS knowledge to pick up the Python required relatively quickly, but in terms of general approach to problem solving, I found myself initially trying to just translate JS into Python, because I immediately thought of how I'd solve it in JS. The longer I spent fiddling with the Python code, the better able I was to devise solutions that utilised Python more efficiently.
 
 Using new things - hooks, backend search, libraries - minimal pie chart, intro to SVG
 
