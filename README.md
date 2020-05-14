@@ -266,7 +266,7 @@ class RecipeDetailView(RetrieveUpdateDestroyAPIView):
 
 Our main page to browse recipes is accessed through 'find a recipe' on the navbar. This page contains a div for each main protein in our database, and a selection of recipies for each category are displayed using Bulma cards. These divs can be scrolled sideways for browsing, with a link to 'see more' if a user wants to view a greater range of recipes in this category.
 
-INSERT GIF HERE
+![Scrolling demonstration](screenshots/scrolling.gif)
 
 The scrolling div was achieved simply with CSS like so:
 
@@ -367,7 +367,7 @@ This was my first experience of writing this kind of logic in Python, and of usi
 
 The search results are displayed on the frontend on a search results page, using the `SearchResults` component. The data is simply mapped over on Bulma cards. The search results page also contains a `SearchBar` component at the top of the page, enabling the user to make further searches if necessary. Text at the top of the page also displays what the user searched for, and the total number of results:
 
-INSERT PIC HERE
+![searched](screenshots/results.png)
 
 
 
@@ -405,11 +405,11 @@ The single recipe page has a number of interesting features, depending on whethe
 
 <a name="healthtags"></a>
 ## Health tags
-INSERT PIC HERE OF THE TAGS
+![Recipe tags](screenshots/tags.png)
 
 The single recipe page displays the related `diet_labels` and `health_labels` as 'tags' underneath the recipe title. We decided to group these together, since the difference isn't important to the user. These serve as a summary of key health information to the user, and can also be clicked on to navigate to a page displaying all recipes of this type. 
 
-INSERT PIC OF HEALTH TAG RESULTS
+![Recipe tags results](screenshots/tag-browse.png)
 
 This required an extra, albeit simple, path and view in the backend:
 
