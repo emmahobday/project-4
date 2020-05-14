@@ -525,6 +525,9 @@ and the results are displayed, as in other components. The frontend displays the
 
 ```
 
+![Results text](screenshots/results.png)
+
+
 On the backend, this URL pattern in the GET request uses the view `AllRecipeSearchList`. This view takes the query from the URL, creates an array of terms by splitting the string at each '&', then for each term in this array, creates the Django search term required (e.g.Q(ingredients_lines__icontains=term) | Q(dish_name__icontains=term)), and adds these terms to the array `queryterms`. The database is then filtered by all of these search terms.
 
 Unlike the 'What's in your fridge?' search, which was limited to three search terms, this takes as many search terms as the user inputs.
