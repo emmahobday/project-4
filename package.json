@@ -1,0 +1,60 @@
+{
+  "name": "project-4",
+  "version": "1.0.0",
+  "description": "SEI Paired Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "webpack-dev-server --mode=development",
+    "build": "webpack -p",
+    "serve:backend": "python manage.py runserver 8000",
+    "serve:frontend": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emmahobday/project-4.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emmahobday/project-4/issues"
+  },
+  "homepage": "https://github.com/emmahobday/project-4#readme",
+  "dependencies": {
+    "@devexpress/dx-react-core": "^2.6.2",
+    "@devexpress/dx-react-scheduler": "^2.6.2",
+    "@devexpress/dx-react-scheduler-material-ui": "^2.6.2",
+    "@fortawesome/fontawesome-svg-core": "^1.2.28",
+    "@fortawesome/free-regular-svg-icons": "^5.13.0",
+    "@fortawesome/free-solid-svg-icons": "^5.13.0",
+    "@fortawesome/react-fontawesome": "^0.1.9",
+    "@material-ui/core": "^4.9.11",
+    "@material-ui/icons": "^4.9.1",
+    "axios": "^0.19.2",
+    "bulma": "^0.8.2",
+    "dayjs": "^1.8.25",
+    "dotenv-webpack": "^1.7.0",
+    "react": "^16.13.1",
+    "react-datepicker": "^2.14.1",
+    "react-dom": "^16.13.1",
+    "react-loader-spinner": "^3.1.14",
+    "react-minimal-pie-chart": "^7.3.0",
+    "react-rating": "^2.0.5",
+    "react-router-dom": "^5.1.2",
+    "style-loader": "^1.1.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.5.2",
+    "html-webpack-plugin": "^4.2.0",
+    "node-sass": "^4.13.1",
+    "sass-loader": "^8.0.2",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3",
+    "webpack-merge": "^4.2.2"
+  }
+}
